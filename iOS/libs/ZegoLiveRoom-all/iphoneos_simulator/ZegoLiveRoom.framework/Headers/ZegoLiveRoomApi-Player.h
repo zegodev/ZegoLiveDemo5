@@ -24,6 +24,8 @@
 /// \return true 成功，等待 [ZegoLivePlayerDelegate -onPlayStateUpdate:streamID:] 回调，false 失败
 - (bool)startPlayingStream:(NSString *)streamID inView:(ZEGOView *)view;
 
+- (bool)updatePlayView:(ZEGOView *)view ofStream:(NSString *)streamID;
+
 /// \brief 停止播放
 /// \param[in] streamID 流 ID
 /// \return true 成功，false 失败

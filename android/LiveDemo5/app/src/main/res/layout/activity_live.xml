@@ -21,20 +21,21 @@
                 android:id="@+id/vl_big_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:isBigView="true"
-                />
+                app:isBigView="true"/>
 
 
             <LinearLayout
                 android:id="@+id/ll_viewlist"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_alignParentBottom="true">
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_150"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <com.zego.livedemo5.ui.widgets.ViewLive
@@ -60,6 +61,7 @@
                         android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:visibility="invisible"/>
+
                     <com.zego.livedemo5.ui.widgets.ViewLive
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -71,7 +73,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_150"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <com.zego.livedemo5.ui.widgets.ViewLive
@@ -97,6 +100,7 @@
                         android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:visibility="invisible"/>
+
                     <com.zego.livedemo5.ui.widgets.ViewLive
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -108,7 +112,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_150"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <com.zego.livedemo5.ui.widgets.ViewLive
@@ -134,6 +139,7 @@
                         android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:visibility="invisible"/>
+
                     <com.zego.livedemo5.ui.widgets.ViewLive
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -145,7 +151,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_150"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <com.zego.livedemo5.ui.widgets.ViewLive
@@ -171,6 +178,46 @@
                         android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:visibility="invisible"/>
+
+                    <com.zego.livedemo5.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <com.zego.livedemo5.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.livedemo5.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.livedemo5.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
                     <com.zego.livedemo5.ui.widgets.ViewLive
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -185,13 +232,13 @@
                 android:id="@+id/tv_send"
                 android:layout_width="@dimen/dimen_50"
                 android:layout_height="@dimen/dimen_40"
-                android:gravity="center"
-                android:textColor="@color/sl_btn"
-                android:textSize="@dimen/text_size_5"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/dimen_5"
-                android:text="发送"/>
+                android:gravity="center"
+                android:text="发送"
+                android:textColor="@color/sl_btn"
+                android:textSize="@dimen/text_size_5"/>
 
             <EditText
                 android:id="@+id/et_msg"

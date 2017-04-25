@@ -10,6 +10,8 @@
 #import "ZegoAnchorViewController.h"
 #import "ZegoMoreAnchorViewController.h"
 #import "ZegoMixStreamAnchorViewController.h"
+#import "ZegoWerewolfHostViewController.h"
+
 #import "ZegoAVKitManager.h"
 #import "ZegoSettings.h"
 #import <AVFoundation/AVFoundation.h>
@@ -265,13 +267,20 @@
 {
     ZegoAVConfig *config = [ZegoSettings sharedInstance].currentConfig;
     
-    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
-        && config.videoEncodeResolution.height > config.videoEncodeResolution.width)
+    CGFloat height = config.videoEncodeResolution.height;
+    CGFloat width = config.videoEncodeResolution.width;
+    
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
     {
         // * adjust width/height for landscape
-        config.videoEncodeResolution = CGSizeMake(config.videoEncodeResolution.height, config.videoEncodeResolution.width);
-        config.videoCaptureResolution = config.videoEncodeResolution;
+        config.videoEncodeResolution = CGSizeMake(MAX(height, width), MIN(height, width));
     }
+    else
+    {
+        config.videoEncodeResolution = CGSizeMake(MIN(height, width), MAX(height, width));
+    }
+    
+    config.videoCaptureResolution = config.videoEncodeResolution;
     
     int ret = [[ZegoDemoHelper api] setAVConfig:config];
     assert(ret);
@@ -504,13 +513,55 @@
             [self performSegueWithIdentifier:@"mixStreamAnchorSegueIdentifier" sender:nil];
         }];
         
+        UIAlertAction *warewolfAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"狼人杀模式", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self showWorewolfChoice];
+        }];
+        
         [alertController addAction:cancelAction];
         [alertController addAction:anchorAction];
         [alertController addAction:moreAnchorAction];
         [alertController addAction:mixStreamAction];
+        [alertController addAction:warewolfAction];
         
         [self presentViewController:alertController animated:YES completion:nil];
     }
+}
+
+- (void)showWorewolfChoice
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"请选择狼人杀模式", nil) preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"取消", nil) style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *lowDelayAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"低延迟", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self performWerewolfController:YES];
+    }];
+    
+    UIAlertAction *highDelayAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"低成本", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self performWerewolfController:NO];
+    }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:lowDelayAction];
+    [alertController addAction:highDelayAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+- (void)performWerewolfController:(BOOL)lowDelay
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    ZegoWerewolfHostViewController *werewolfController = (ZegoWerewolfHostViewController *)[storyboard instantiateViewControllerWithIdentifier:@"werewolfInTurnHostID"];
+    
+    werewolfController.liveTitle = [self getLiveTitle];
+    werewolfController.isUrtralServer = lowDelay;
+    
+    [self stopPreview];
+    
+    [self presentViewController:werewolfController animated:YES completion:nil];
+    
 }
 
 #pragma mark ActionSheetDelegate
@@ -526,10 +577,8 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSString *)getLiveTitle
+{
     [self.titleField resignFirstResponder];
     NSString *liveTitle = nil;
     if (self.titleField.text.length == 0)
@@ -541,13 +590,20 @@
         else
             liveTitle = self.titleField.text;
     }
-
     
+    return liveTitle;
+}
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+
     if ([segue.identifier isEqualToString:@"anchorSegueIdentifier"])
     {
         ZegoAnchorViewController *anchorViewController = (ZegoAnchorViewController *)segue.destinationViewController;
         
-        anchorViewController.liveTitle = liveTitle;
+        anchorViewController.liveTitle = [self getLiveTitle];
         anchorViewController.useFrontCamera = self.switchCamera.on;
         anchorViewController.enableTorch = self.switchTorch.on;
         anchorViewController.beautifyFeature = [self.beautifyPicker selectedRowInComponent:0];
@@ -561,7 +617,7 @@
     {
         ZegoMoreAnchorViewController *anchorViewController = (ZegoMoreAnchorViewController *)segue.destinationViewController;
         
-        anchorViewController.liveTitle = liveTitle;
+        anchorViewController.liveTitle = [self getLiveTitle];
         anchorViewController.useFrontCamera = self.switchCamera.on;
         anchorViewController.enableTorch = self.switchTorch.on;
         anchorViewController.beautifyFeature = [self.beautifyPicker selectedRowInComponent:0];
@@ -575,7 +631,7 @@
     {
         ZegoMixStreamAnchorViewController *anchorViewController = (ZegoMixStreamAnchorViewController *)segue.destinationViewController;
         
-        anchorViewController.liveTitle = liveTitle;
+        anchorViewController.liveTitle = [self getLiveTitle];
         anchorViewController.useFrontCamera = self.switchCamera.on;
         anchorViewController.enableTorch = self.switchTorch.on;
         anchorViewController.beautifyFeature = [self.beautifyPicker selectedRowInComponent:0];

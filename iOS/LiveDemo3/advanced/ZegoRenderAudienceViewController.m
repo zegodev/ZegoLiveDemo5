@@ -303,11 +303,13 @@
     }
 }
 
-- (void)onPlayQualityUpdate:(int)quality stream:(NSString *)streamID
+- (void)onPlayQualityUpdate:(int)quality stream:(NSString *)streamID videoFPS:(double)fps videoBitrate:(double)kbs
 {
     UIView *view = self.viewContainersDict[streamID];
     if (view)
         [self updateQuality:quality view:view];
+    
+    [self addStaticsInfo:NO stream:streamID fps:fps kbs:kbs];
 }
 
 #pragma mark ZegoRoomApiDelegate

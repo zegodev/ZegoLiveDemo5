@@ -41,6 +41,8 @@ BOOL g_enableReverb = NO;
 
 BOOL g_recordTime = NO;
 
+BOOL g_useHeadSet = NO;
+
 static Byte toByte(NSString* c);
 static NSData* ConvertStringToSign(NSString* strSign);
 
@@ -79,6 +81,26 @@ static __strong id<ZegoVideoFilterFactory> g_filterFactory = nullptr;
     }
     
     return g_ZegoApi;
+}
+
++ (void)checkHeadSet
+{
+#if TARGET_IPHONE_SIMULATOR
+    g_useHeadSet = NO;
+#else
+    AVAudioSessionRouteDescription *route = [AVAudioSession sharedInstance].currentRoute;
+    for (AVAudioSessionPortDescription *desc in route.outputs)
+    {
+        if ([desc.portType isEqualToString:AVAudioSessionPortHeadphones] ||
+            [desc.portType isEqualToString:AVAudioSessionPortBluetoothA2DP])
+        {
+            g_useHeadSet = YES;
+            return;
+        }
+    }
+    
+    g_useHeadSet = NO;
+#endif
 }
 
 + (void)releaseApi
@@ -309,6 +331,11 @@ void prep_func(const short* inData, int inSamples, int sampleRate, short *outDat
     return g_recordTime;
 }
 
++ (bool)useHeadSet
+{
+    return g_useHeadSet;
+}
+
 #pragma mark - private
 
 + (void)setupVideoCaptureDevice
@@ -387,6 +414,12 @@ void prep_func(const short* inData, int inSamples, int sampleRate, short *outDat
             return [NSString stringWithFormat:@"#m-%@", [ZegoSettings sharedInstance].userID];
         case MixStreamRoom: // * 混流
             return [NSString stringWithFormat:@"#s-%@", [ZegoSettings sharedInstance].userID];
+        case WerewolfRoom:
+            return [NSString stringWithFormat:@"#w-%@", [ZegoSettings sharedInstance].userID];
+        case WerewolfInTurnRoom:
+        {
+            return [NSString stringWithFormat:@"#i-%@", [ZegoSettings sharedInstance].userID];
+        }
         default:
             return nil;
     }
@@ -433,10 +466,6 @@ NSData* ConvertStringToSign(NSString* strSign)
     NSData *sign = [NSData dataWithBytes:szSign length:32];
     return sign;
 }
-
-
-//@implementation ZegoUser
-//@end
 
 
 #pragma mark - alpha support

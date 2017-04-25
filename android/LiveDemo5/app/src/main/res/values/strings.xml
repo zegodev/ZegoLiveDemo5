@@ -71,6 +71,7 @@
     <string name="please_wait">请稍后...</string>
 
     <string name="live_quality">当前质量:&#160;<xliff:g id="value">%1$s</xliff:g></string>
+    <string name="live_quality_fps_and_bitrate">;&#160;帧率:<xliff:g id="fps">%1$.2f</xliff:g>;&#160;比特率:<xliff:g id="bitrate">%2$.2f</xliff:g>Kb/s</string>
     <string name="full_screen">全屏播放</string>
     <string name="exit_full_screen">退出全屏</string>
     <string name="allow_camera_permission">请开启摄像头权限</string>
@@ -90,4 +91,7 @@
     <string name="rate_control">码率控制</string>
     <string name="preview_mirror">预览镜像</string>
     <string name="capture_mirror">采集镜像</string>
+
+    <string name="message_can_not_be_empty">消息不能为空!</string>
+    <string name="me">我</string>
 </resources>

@@ -12,7 +12,7 @@
 #import <UIKit/UIKit.h>
 #define ZEGOView UIView
 #define ZEGOImage UIImage
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
 #import <AppKit/AppKit.h>
 #define ZEGOView NSView
 #define ZEGOImage NSImage

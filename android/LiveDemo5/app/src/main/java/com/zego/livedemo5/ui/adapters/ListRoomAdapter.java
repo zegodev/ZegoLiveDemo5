@@ -3,6 +3,7 @@ package com.zego.livedemo5.ui.adapters;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,13 +70,11 @@ public class ListRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         } else {
             RoomInfo room = mListRoom.get(position);
-            String roomID = room.room_id;
-            if(roomID.startsWith(ZegoRoomUtil.ROOM_PREFIX_SINGLE_ANCHOR)
-                    || roomID.startsWith(ZegoRoomUtil.ROOM_PREFIX_MORE_ANCHORS)
-                    || roomID.startsWith(ZegoRoomUtil.ROOM_PREFIX_MIX_STREAM)){
-                roomID = roomID.substring(3);
+            String roomName = room.room_name;
+            if(TextUtils.isEmpty(roomName)){
+                roomName = room.room_id;
             }
-            ((LiveListHolder) holder).tvPulishTitle.setText(roomID);
+            ((LiveListHolder) holder).tvPulishTitle.setText(roomName);
             ((LiveListHolder) holder).tvPublishTime.setText(room.anchor_nick_name);
 
             if (mOnItemClickListener != null) {

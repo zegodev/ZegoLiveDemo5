@@ -72,6 +72,7 @@
     <string name="please_wait">Wait...</string>
 
     <string name="live_quality">Quality:&#160;<xliff:g id="value">%1$s</xliff:g></string>
+    <string name="live_quality_fps_and_bitrate">;&#160;FPS:<xliff:g id="fps">%1$.2f</xliff:g>;&#160;Bitrate:<xliff:g id="bitrate">%2$.2f</xliff:g>Kb/s</string>
     <string name="full_screen">FullScreen</string>
     <string name="exit_full_screen">Exit</string>
 
@@ -92,4 +93,7 @@
     <string name="rate_control">Rate Control</string>
     <string name="preview_mirror">Preview Mirror</string>
     <string name="capture_mirror">Capture Mirror</string>
+
+    <string name="message_can_not_be_empty">Message can not be empty!</string>
+    <string name="me">Me</string>
 </resources>

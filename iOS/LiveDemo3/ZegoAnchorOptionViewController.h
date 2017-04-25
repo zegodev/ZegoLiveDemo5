@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kHeadSetStateChangeNotification     @"headSetStateChange"
+
 @protocol ZegoAnchorOptionDelegate <NSObject>
 
 - (void)onUseFrontCamera:(BOOL)use;
@@ -20,6 +22,18 @@
 
 - (void)onEnablePreviewMirror:(BOOL)enabled;
 - (void)onEnableCaptureMirror:(BOOL)enable;
+- (void)onEnableLoopback:(BOOL)enable;
+
+- (BOOL)onGetUseFrontCamera;
+- (BOOL)onGetEnableMicrophone;
+- (BOOL)onGetEnableTorch;
+- (NSInteger)onGetSelectedBeautify;
+- (NSInteger)onGetSelectedFilter;
+- (BOOL)onGetEnableCamera;
+- (BOOL)onGetEnableAux;
+- (BOOL)onGetEnablePreviewMirror;
+- (BOOL)onGetEnableCaptureMirror;
+- (BOOL)onGetEnableLoopback;
 
 @end
 
@@ -37,17 +51,6 @@
 @end
 
 @interface ZegoAnchorOptionViewController : UIViewController
-
-@property (nonatomic, assign) BOOL useFrontCamera;
-@property (nonatomic, assign) BOOL enableMicrophone;
-@property (nonatomic, assign) BOOL enableTorch;
-@property (nonatomic, assign) NSUInteger beautifyRow;
-@property (nonatomic, assign) NSUInteger filterRow;
-@property (nonatomic, assign) BOOL enableCamera;
-@property (nonatomic, assign) BOOL enableAux;
-
-@property (nonatomic, assign) BOOL enablePreviewMirror;
-@property (nonatomic, assign) BOOL enableCaptureMirror;
 
 @property (nonatomic, weak) id<ZegoAnchorOptionDelegate> delegate;
 

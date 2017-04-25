@@ -163,7 +163,7 @@
     self.roomID = [ZegoDemoHelper getMyRoomID:MultiPublisherRoom];
     self.streamID = [ZegoDemoHelper getPublishStreamID];
     
-    [[ZegoDemoHelper api] loginRoom:self.roomID role:ZEGO_ANCHOR withCompletionBlock:^(int errorCode, NSArray<ZegoStream *> *streamList) {
+    [[ZegoDemoHelper api] loginRoom:self.roomID roomName:self.liveTitle role:ZEGO_ANCHOR withCompletionBlock:^(int errorCode, NSArray<ZegoStream *> *streamList) {
         NSLog(@"%s, error: %d", __func__, errorCode);
         if (errorCode == 0)
         {
@@ -318,6 +318,9 @@
 {
     if (![self isStreamIDExist:streamID])
         return;
+    
+    NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"第一帧画面, 流ID:%@", nil), streamID];
+    [self addLogString:logString];
     
     UIView *view = self.viewContainersDict[streamID];
     if (view == nil)

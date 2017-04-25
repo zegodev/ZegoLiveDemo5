@@ -59,7 +59,8 @@
         <activity
             android:name=".ui.activities.moreanchors.MoreAnchorsPublishActivity"
             android:windowSoftInputMode="stateHidden"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.activities.moreanchors.MoreAnchorsPlayActivity"
@@ -69,7 +70,8 @@
         <activity
             android:name=".ui.activities.mixstream.MixStreamPublishActivity"
             android:windowSoftInputMode="stateHidden"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.activities.mixstream.MixStreamPlayActivity"

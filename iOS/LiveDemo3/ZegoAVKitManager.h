@@ -17,6 +17,8 @@ typedef enum : NSUInteger {
     SinglePublisherRoom = 1,
     MultiPublisherRoom  = 2,
     MixStreamRoom       = 3,
+    WerewolfRoom        = 4,
+    WerewolfInTurnRoom  = 5,
 } ZegoDemoRoomType;
 
 @interface ZegoDemoHelper : NSObject
@@ -55,6 +57,9 @@ typedef enum : NSUInteger {
 
 + (void)setRecordTime:(bool)record;
 + (bool)recordTime;
+
++ (BOOL)useHeadSet;
++ (void)checkHeadSet;
 
 #if TARGET_OS_SIMULATOR
 + (ZegoVideoCaptureFactory *)getVideoCaptureFactory;

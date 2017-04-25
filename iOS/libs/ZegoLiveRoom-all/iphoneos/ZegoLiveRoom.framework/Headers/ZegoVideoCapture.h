@@ -9,7 +9,7 @@
 #import <AVFoundation/AVFoundation.h>
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
 #import <AppKit/AppKit.h>
 #endif
 
@@ -25,7 +25,7 @@
 - (int)zego_setFrontCam:(int)bFront;
 #if TARGET_OS_IPHONE
 - (int)zego_setView:(UIView* _Nullable )view;
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
 - (int)zego_setView:(NSView* _Nullable )view;
 #endif
 - (int)zego_setViewMode:(int)mode;

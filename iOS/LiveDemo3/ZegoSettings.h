@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ZegoAVKitManager.h"
+#import "ZegoRoomInfo.h"
 
 @interface ZegoSettings : NSObject
 {
@@ -16,8 +17,8 @@
 
 + (instancetype)sharedInstance;
 
-@property (nonatomic, strong) NSString *userID;
-@property (nonatomic, strong) NSString *userName;
+@property (nonatomic, copy) NSString *userID;
+@property (nonatomic, copy) NSString *userName;
 
 @property (readonly) NSArray *presetVideoQualityList;
 @property (nonatomic, strong) ZegoAVConfig *currentConfig;
@@ -30,6 +31,9 @@
 - (UIImage *)getBackgroundImage:(CGSize)viewSize withText:(NSString *)text;
 - (NSUserDefaults *)myUserDefaults;
 
-- (UIViewController *)getViewControllerFromRoomID:(NSString *)roomID;
+- (UIViewController *)getViewControllerFromRoomInfo:(ZegoRoomInfo *)roomInfo;
+
+- (void)selectWolfMode:(NSUInteger)modeIndex;
+- (void)selectWolfResolution:(NSUInteger)resolutionIndex;
 
 @end

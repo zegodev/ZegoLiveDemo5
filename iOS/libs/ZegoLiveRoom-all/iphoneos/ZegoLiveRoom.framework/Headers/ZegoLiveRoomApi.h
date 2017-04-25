@@ -7,8 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ZegoLiveRoomApiDefines.h"
-
-
+#import "ZegoLiveRoomApiDefines-IM.h"
 
 
 @protocol ZegoRoomDelegate;
@@ -17,6 +16,7 @@
 
 typedef void(^ZegoLoginCompletionBlock)(int errorCode, NSArray<ZegoStream*> *streamList);
 typedef void(^ZegoResponseBlock)(int result, NSString *fromUserID, NSString *fromUserName);
+typedef void(^ZegoCustomCommandBlock)(int errorCode, NSString *roomID);
 
 @interface ZegoLiveRoomApi : NSObject
 
@@ -58,17 +58,34 @@ typedef void(^ZegoResponseBlock)(int result, NSString *fromUserID, NSString *fro
 
 - (bool)setRoomDelegate:(id<ZegoRoomDelegate>) roomDelegate;
 
+/// \brief 设置房间附加信息
+/// \param[in] audienceCreateRoom 观众是否可以创建房间
+/// \param[in] userStateUpdate 用户状态是否广播
+- (void)setRoomConfig:(bool)audienceCreateRoom userStateUpdate:(bool)userStateUpdate;
+
 /// \brief 登陆房间
 /// \param[in] roomID 房间唯一ID
 /// \param[in] role 成员角色
 /// \return true 成功，通过 blk 回调，false 失败
 - (bool)loginRoom:(NSString *)roomID role:(int)role withCompletionBlock:(ZegoLoginCompletionBlock)blk;
 
+/// \brief 登陆房间
+/// \param[in] roomID 房间唯一ID
+/// \param[in] roomName 房间名称
+/// \param[in] role 成员角色
+/// \return true 成功，通过 blk 回调，false 失败
+- (bool)loginRoom:(NSString *)roomID roomName:(NSString *)roomName role:(int)role withCompletionBlock:(ZegoLoginCompletionBlock)blk;
+
 /// \brief 退出房间
 /// \note 会停止所有的推拉流
 /// \return true 成功，false 失败
 - (bool)logoutRoom;
 
+/// \brief 发送自定义信令
+/// \param[in] memberList 发送对象ID
+/// \param[in] content 消息内容
+/// \param[in] block 消息发送结果
+- (bool)sendCustomCommand:(NSArray<ZegoUser*> *)memberList content:(NSString *)content completion:(ZegoCustomCommandBlock)block;
 
 /// \brief 直播事件通知回调
 /// \param liveEventDelegate 直播事件通知回调协议
@@ -119,6 +136,13 @@ typedef void(^ZegoResponseBlock)(int result, NSString *fromUserID, NSString *fro
 /// \param[in] roomID 房间 ID
 /// \note 主播推流成功后更新附加信息,在此回调中通知
 - (void)onStreamExtraInfoUpdated:(NSArray<ZegoStream *> *)streamList roomID:(NSString *)roomID;
+
+/// \brief 收到自定义消息
+/// \param[in] fromUserID 消息来源UserID
+/// \param[in] fromUserName 消息来源UserName
+/// \param[in] content 消息内容
+/// \param[in] roomID 房间 ID
+- (void)onReceiveCustomCommand:(NSString *)fromUserID userName:(NSString *)fromUserName content:(NSString*)content roomID:(NSString *)roomID;
 
 @end
 

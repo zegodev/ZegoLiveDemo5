@@ -13,14 +13,14 @@ static ZegoAVKitManager *avkitManager;
 
 @property (nonatomic, strong, readonly) ZegoLiveRoomApi *zegoLiveApi;
 
-@property (nonatomic, strong) NSString *liveTitle;
+@property (nonatomic, copy) NSString *liveTitle;
 @property (nonatomic, assign) BOOL requiredHardwareAccelerate;
 @property (nonatomic, assign) BOOL testEnvironment;
 
-@property (nonatomic, strong) NSString *userID;
-@property (nonatomic, strong) NSString *userName;
-@property (nonatomic, strong) NSString *liveChannel;
-@property (nonatomic, strong) NSString *streamID;
+@property (nonatomic, copy) NSString *userID;
+@property (nonatomic, copy) NSString *userName;
+@property (nonatomic, copy) NSString *liveChannel;
+@property (nonatomic, copy) NSString *streamID;
 
 @property (nonatomic, assign) CGSize videoSize;
 

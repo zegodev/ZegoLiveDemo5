@@ -114,12 +114,12 @@ public class VideoFilterHybridDemo extends ZegoVideoFilter {
     protected synchronized int dequeueInputBuffer(int width, int height, int stride) {
 
         // 创建buffer队列, 用于获取原始视频数据
-        if (stride * height * 4 > mMaxBufferSize) {
+        if (stride * height > mMaxBufferSize) {
             if (mMaxBufferSize != 0) {
                 mProduceQueue.clear();
             }
 
-            mMaxBufferSize = stride * height * 4;
+            mMaxBufferSize = stride * height;
             createPixelBufferPool(4);
         }
 

@@ -35,6 +35,18 @@
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
+@property (nonatomic, assign, readonly) BOOL useFrontCamera;
+@property (nonatomic, assign, readonly) BOOL enableMicrophone;
+@property (nonatomic, assign, readonly) BOOL enableTorch;
+@property (nonatomic, assign, readonly) NSUInteger beautifyRow;
+@property (nonatomic, assign, readonly) NSUInteger filterRow;
+@property (nonatomic, assign, readonly) BOOL enableCamera;
+@property (nonatomic, assign, readonly) BOOL enableAux;
+
+@property (nonatomic, assign, readonly) BOOL enablePreviewMirror;
+@property (nonatomic, assign, readonly) BOOL enableCaptureMirror;
+@property (nonatomic, assign, readonly) BOOL enableLoopback;
+
 @end
 
 @implementation ZegoAnchorOptionViewController
@@ -77,6 +89,8 @@
     [self.view addGestureRecognizer:tapGesture];
     
     self.tableView.layer.cornerRadius = 5.0;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHeadSetStateChange:) name:kHeadSetStateChangeNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,9 +99,95 @@
 }
 
 - (IBAction)onClose:(UITapGestureRecognizer *)recognizer {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)onHeadSetStateChange:(NSNotification *)notification
+{
+    [self.tableView reloadData];
+}
+
+#pragma mark getter
+- (BOOL)useFrontCamera
+{
+    if ([self.delegate respondsToSelector:@selector(onGetUseFrontCamera)])
+        return [self.delegate onGetUseFrontCamera];
+    
+    return NO;
+}
+
+- (BOOL)enableMicrophone
+{
+    if ([self.delegate respondsToSelector:@selector(onGetEnableMicrophone)])
+        return [self.delegate onGetEnableMicrophone];
+    
+    return NO;
+}
+
+- (BOOL)enableTorch
+{
+    if ([self.delegate respondsToSelector:@selector(onGetEnableTorch)])
+        return [self.delegate onGetEnableTorch];
+    
+    return NO;
+}
+
+- (NSUInteger)beautifyRow
+{
+    if ([self.delegate respondsToSelector:@selector(onGetSelectedBeautify)])
+        return [self.delegate onGetSelectedBeautify];
+    
+    return 0;
+}
+
+- (NSUInteger)filterRow
+{
+    if ([self.delegate respondsToSelector:@selector(onGetSelectedFilter)])
+        return [self.delegate onGetSelectedFilter];
+    
+    return 0;
+}
+
+- (BOOL)enableCamera
+{
+    if ([self.delegate respondsToSelector:@selector(onGetEnableCamera)])
+        return [self.delegate onGetEnableCamera];
+    
+    return NO;
+}
+
+- (BOOL)enableAux
+{
+    if ([self.delegate respondsToSelector:@selector(onGetEnableAux)])
+        return [self.delegate onGetEnableAux];
+    
+    return NO;
+}
+
+- (BOOL)enablePreviewMirror
+{
+    if ([self.delegate respondsToSelector:@selector(onGetEnablePreviewMirror)])
+        return [self.delegate onGetEnablePreviewMirror];
+    
+    return NO;
+}
+
+- (BOOL)enableCaptureMirror
+{
+    if ([self.delegate respondsToSelector:@selector(onGetEnableCaptureMirror)])
+        return [self.delegate onGetEnableCaptureMirror];
+    
+    return NO;
+}
+
+- (BOOL)enableLoopback
+{
+    if ([self.delegate respondsToSelector:@selector(onGetEnableLoopback)])
+        return [self.delegate onGetEnableLoopback];
+    
+    return NO;
+}
 
 #pragma mark -- UIPickerViewDelegate, UIPickerViewDataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -122,13 +222,11 @@
 {
     if (pickerView == self.beautifyPicker)
     {
-        self.beautifyRow = row;
         if ([self.delegate respondsToSelector:@selector(onSelectedBeautify:)])
             [self.delegate onSelectedBeautify:row];
     }
     else
     {
-        self.filterRow = row;
         if ([self.delegate respondsToSelector:@selector(onSelectedFilter:)])
             [self.delegate onSelectedFilter:row];
     }
@@ -137,7 +235,6 @@
 - (IBAction)toggleFrontCamera:(id)sender
 {
     UISwitch *switchCamera = (UISwitch *)sender;
-    self.useFrontCamera = switchCamera.on;
     if ([self.delegate respondsToSelector:@selector(onUseFrontCamera:)])
         [self.delegate onUseFrontCamera:switchCamera.on];
     
@@ -147,7 +244,6 @@
 - (IBAction)toggleMicrophone:(id)sender
 {
     UISwitch *switchMicrophone = (UISwitch *)sender;
-    self.enableMicrophone = switchMicrophone.on;
     if ([self.delegate respondsToSelector:@selector(onEnableMicrophone:)])
         [self.delegate onEnableMicrophone:switchMicrophone.on];
 }
@@ -155,7 +251,6 @@
 - (IBAction)toggleTorch:(id)sender
 {
     UISwitch *switchTorch = (UISwitch *)sender;
-    self.enableTorch = switchTorch.on;
     if ([self.delegate respondsToSelector:@selector(onEnableTorch:)])
         [self.delegate onEnableTorch:switchTorch.on];
 }
@@ -163,7 +258,6 @@
 - (IBAction)toggleCamera:(id)sender
 {
     UISwitch *switchTorch = (UISwitch *)sender;
-    self.enableCamera = switchTorch.on;
     if ([self.delegate respondsToSelector:@selector(onEnableCamera:)])
         [self.delegate onEnableCamera:switchTorch.on];
     
@@ -173,7 +267,6 @@
 - (IBAction)toggleAux:(id)sender
 {
     UISwitch *switchAux = (UISwitch *)sender;
-    self.enableAux = switchAux.on;
     if ([self.delegate respondsToSelector:@selector(onEnableAux:)])
         [self.delegate onEnableAux:switchAux.on];
 }
@@ -181,7 +274,6 @@
 - (IBAction)togglePreviewMirror:(id)sender
 {
     UISwitch *switchPreview = (UISwitch *)sender;
-    self.enablePreviewMirror = switchPreview.on;
     if ([self.delegate respondsToSelector:@selector(onEnablePreviewMirror:)])
         [self.delegate onEnablePreviewMirror:switchPreview.on];
 }
@@ -189,9 +281,15 @@
 - (IBAction)toggleCaptureMirror:(id)sender
 {
     UISwitch *switchCapture = (UISwitch *)sender;
-    self.enableCaptureMirror = switchCapture.on;
     if ([self.delegate respondsToSelector:@selector(onEnableCaptureMirror:)])
         [self.delegate onEnableCaptureMirror:switchCapture.on];
+}
+
+- (IBAction)toggleLoopback:(id)sender
+{
+    UISwitch *switchLoop = (UISwitch *)sender;
+    if ([self.delegate respondsToSelector:@selector(onEnableLoopback:)])
+        [self.delegate onEnableLoopback:switchLoop.on];
 }
 
 #pragma mark UITableViewDataSource & Delegate
@@ -203,7 +301,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0)
-        return 7;
+        return 8;
     
     return 1;
 }
@@ -311,6 +409,20 @@
             cell.switchButton.enabled = YES;
             [cell.switchButton removeTarget:self action:NULL forControlEvents:UIControlEventValueChanged];
             [cell.switchButton addTarget:self action:@selector(toggleAux:) forControlEvents:UIControlEventValueChanged];
+        }
+        else if (indexPath.row == 7)
+        {
+            cell.titleLabel.text = NSLocalizedString(@"采集监听", nil);
+            cell.switchButton.on = self.enableLoopback;
+            cell.switchButton.enabled = YES;
+            
+            if (![ZegoDemoHelper useHeadSet])
+            {
+                cell.switchButton.enabled = NO;
+            }
+            
+            [cell.switchButton removeTarget:self action:NULL forControlEvents:UIControlEventValueChanged];
+            [cell.switchButton addTarget:self action:@selector(toggleLoopback:) forControlEvents:UIControlEventValueChanged];
         }
         return cell;
     }

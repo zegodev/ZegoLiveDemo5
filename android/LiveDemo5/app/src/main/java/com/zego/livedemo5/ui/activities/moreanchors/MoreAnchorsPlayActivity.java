@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.zego.livedemo5.R;
@@ -16,9 +15,7 @@ import com.zego.zegoliveroom.callback.IZegoLivePublisherCallback;
 import com.zego.zegoliveroom.callback.IZegoLoginCompletionCallback;
 import com.zego.zegoliveroom.callback.IZegoRoomCallback;
 import com.zego.zegoliveroom.callback.im.IZegoIMCallback;
-import com.zego.zegoliveroom.callback.im.IZegoRoomMessageCallback;
 import com.zego.zegoliveroom.constants.ZegoConstants;
-import com.zego.zegoliveroom.constants.ZegoIM;
 import com.zego.zegoliveroom.entity.AuxData;
 import com.zego.zegoliveroom.entity.ZegoConversationMessage;
 import com.zego.zegoliveroom.entity.ZegoRoomMessage;
@@ -26,8 +23,6 @@ import com.zego.zegoliveroom.entity.ZegoStreamInfo;
 import com.zego.zegoliveroom.entity.ZegoUserState;
 
 import java.util.HashMap;
-
-import butterknife.OnClick;
 
 /**
  * Copyright © 2016 Zego. All rights reserved.
@@ -208,19 +203,7 @@ public class MoreAnchorsPlayActivity extends BasePlayActivity {
 
     @Override
     protected void sendRoomMessage() {
-        String msg = mEdtMessage.getText().toString();
-        if(!TextUtils.isEmpty(msg)){
-            mZegoLiveRoom.sendRoomMessage(ZegoIM.MessageType.Text, ZegoIM.MessageCategory.Chat, ZegoIM.MessagePriority.Default, msg, new IZegoRoomMessageCallback() {
-                @Override
-                public void onSendRoomMessage(int errorCode, String roomID, long messageID) {
-                    if(errorCode == 0){
-                        recordLog(MY_SELF + ": 发送房间消息成功, roomID:" + roomID);
-                    }else {
-                        recordLog(MY_SELF + ": 发送房间消息失败, roomID:" + roomID + ", messageID:" + messageID);
-                    }
-                }
-            });
-        }
+        doSendRoomMsg(mEdtMessage.getText().toString());
     }
 
     @Override

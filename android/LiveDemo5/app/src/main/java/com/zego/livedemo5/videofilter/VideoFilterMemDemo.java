@@ -91,12 +91,12 @@ public class VideoFilterMemDemo extends ZegoVideoFilter {
 
     @Override
     protected synchronized int dequeueInputBuffer(int width, int height, int stride) {
-        if (stride * height * 4 > mMaxBufferSize) {
+        if (stride * height > mMaxBufferSize) {
             if (mMaxBufferSize != 0) {
                 mProduceQueue.clear();
             }
 
-            mMaxBufferSize = stride * height * 4;
+            mMaxBufferSize = stride * height;
             createPixelBufferPool(4);
         }
 

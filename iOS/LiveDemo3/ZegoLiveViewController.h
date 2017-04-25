@@ -41,6 +41,8 @@
 @property (nonatomic, assign) BOOL enablePreviewMirror;
 //采集镜像
 @property (nonatomic, assign) BOOL enableCaptureMirror;
+//采集监听
+@property (nonatomic, assign) BOOL enableLoopback;
 
 //日志记录
 @property (nonatomic, strong) NSMutableArray *logArray;

@@ -29,7 +29,7 @@
 
 @property (nonatomic, assign) CGSize videoSize;
 @property (nonatomic, strong) NSTimer *usageTimer;
-@property (nonatomic, strong) NSString *usageFilePath;
+@property (nonatomic, copy) NSString *usageFilePath;
 
 @property (strong) NSMutableData *recordedAudio;
 
@@ -57,7 +57,8 @@
     self.enablePreview = YES;
     self.viewMode = ZegoVideoViewModeScaleAspectFill;
     self.enableCamera = YES;
-
+    self.enableLoopback = NO;
+    
     _maxStreamCount = [ZegoLiveRoomApi getMaxPlayChannelCount];
 
     self.subViewSpace = 10;
@@ -80,6 +81,12 @@
     self.enableCamera = YES;
     self.enableSpeaker = YES;
     self.enableAux = NO;
+    if ([ZegoDemoHelper recordTime])
+        self.enablePreviewMirror = NO;
+    else
+        self.enablePreviewMirror = YES;
+    
+    self.enableCaptureMirror = NO;
     
     self.logArray = [NSMutableArray array];
     self.staticsArray = [NSMutableArray array];
@@ -93,6 +100,10 @@
     
     // 监听电话事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioSessionWasInterrupted:) name:AVAudioSessionInterruptionNotification object:nil];
+    
+    // 监听耳机插拔
+    [ZegoDemoHelper checkHeadSet];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAudioRouteChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
     
     self.usageTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(onUsage) userInfo:nil repeats:YES];
     
@@ -196,6 +207,25 @@
     }
 }
 
+- (void)handleAudioRouteChanged:(NSNotification *)notification
+{
+    NSInteger reason = [[notification.userInfo objectForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    
+    if (reason == AVAudioSessionRouteChangeReasonNewDeviceAvailable ||
+        reason == AVAudioSessionRouteChangeReasonOldDeviceUnavailable)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ZegoDemoHelper checkHeadSet];
+            if (![ZegoDemoHelper useHeadSet] && self.enableLoopback)
+            {
+                self.enableLoopback = NO;
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHeadSetStateChangeNotification object:self];
+        });
+    }
+}
+
 #pragma mark ZegoAnchorOptionDelegate
 - (void)onUseFrontCamera:(BOOL)use
 {
@@ -263,6 +293,70 @@
 - (void)onEnableCaptureMirror:(BOOL)enable
 {
     self.enableCaptureMirror = enable;
+}
+
+- (void)onEnableLoopback:(BOOL)enable
+{
+    self.enableLoopback = enable;
+}
+
+- (BOOL)onGetUseFrontCamera
+{
+    return self.useFrontCamera;
+}
+
+- (BOOL)onGetEnableMicrophone
+{
+    return self.enableMicrophone;
+}
+
+- (BOOL)onGetEnableTorch
+{
+    return self.enableTorch;
+}
+
+- (NSInteger)onGetSelectedBeautify
+{
+    if (self.beautifyFeature == ZEGO_BEAUTIFY_POLISH)
+        return 1;
+    else if (self.beautifyFeature == ZEGO_BEAUTIFY_WHITEN)
+        return 2;
+    else if (self.beautifyFeature == (ZEGO_BEAUTIFY_POLISH | ZEGO_BEAUTIFY_WHITEN))
+        return 3;
+    else if (self.beautifyFeature == (ZEGO_BEAUTIFY_POLISH | ZEGO_BEAUTIFY_SKINWHITEN))
+        return 4;
+    else
+        return 0;
+}
+
+- (NSInteger)onGetSelectedFilter
+{
+    return self.filter;
+}
+
+- (BOOL)onGetEnableCamera
+{
+    return self.enableCamera;
+}
+
+- (BOOL)onGetEnableAux
+{
+    return self.enableAux;
+}
+
+- (BOOL)onGetEnablePreviewMirror
+{
+    return self.enablePreviewMirror;
+}
+
+- (BOOL)onGetEnableCaptureMirror
+{
+    return self.enableCaptureMirror;
+}
+
+- (BOOL)onGetEnableLoopback
+{
+    return self.enableLoopback;
 }
 
 #pragma mark setter
@@ -362,6 +456,17 @@
     [[ZegoDemoHelper api] enableCaptureMirror:enableCaptureMirror];
 }
 
+- (void)setEnableLoopback:(BOOL)enableLoopback
+{
+    if (_enableLoopback == enableLoopback)
+        return;
+    
+    _enableLoopback = enableLoopback;
+    [[ZegoDemoHelper api] enableLoopback:enableLoopback];
+    if (enableLoopback)
+        [[ZegoDemoHelper api] setLoopbackVolume:50];
+}
+
 - (void)setAnchorConfig:(UIView *)publishView
 {
     [[ZegoDemoHelper api] setAppOrientation:[UIApplication sharedApplication].statusBarOrientation];
@@ -399,6 +504,7 @@
     if ([ZegoDemoHelper recordTime])
     {
         [[ZegoDemoHelper api] enablePreviewMirror:false];
+        self.enablePreviewMirror = NO;
     }
 }
 
@@ -443,12 +549,12 @@
         NSUInteger yIndex = (viewIndex - 1) / self.subViewPerRow;
         
         CGFloat xToLeftConstraints = xIndex * (self.subViewSpace + self.subViewWidth) + self.subViewSpace;
-        CGFloat yToTobottomConstraints = yIndex * (self.subViewSpace + self.subViewHeight) + self.subViewSpace;
+        CGFloat yTobottomConstraints = yIndex * (self.subViewSpace + self.subViewHeight) + self.subViewSpace;
         
         NSLayoutConstraint *widthConstraints = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:self.subViewWidth];
         NSLayoutConstraint *heightConstraints = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:self.subViewHeight];
         NSLayoutConstraint *leftConstraints = [NSLayoutConstraint constraintWithItem:containerView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:xToLeftConstraints];
-        NSLayoutConstraint *bottomConstraints = [NSLayoutConstraint constraintWithItem:containerView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:yToTobottomConstraints];
+        NSLayoutConstraint *bottomConstraints = [NSLayoutConstraint constraintWithItem:containerView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:yTobottomConstraints];
         
         [containerView addConstraints:@[widthConstraints, heightConstraints, leftConstraints, bottomConstraints]];
     }
@@ -541,16 +647,6 @@
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZegoAnchorOptionViewController *optionController = (ZegoAnchorOptionViewController *)[storyboard instantiateViewControllerWithIdentifier:@"anchorOptionID"];
-    
-    optionController.useFrontCamera = self.useFrontCamera;
-    optionController.enableMicrophone = self.enableMicrophone;
-    optionController.enableTorch = self.enableTorch;
-    optionController.beautifyRow = self.beautifyFeature;
-    optionController.filterRow = self.filter;
-    optionController.enableCamera = self.enableCamera;
-    optionController.enableAux = self.enableAux;
-    optionController.enablePreviewMirror = self.enablePreviewMirror;
-    optionController.enableCaptureMirror = self.enableCaptureMirror;
     
     optionController.delegate = self;
     

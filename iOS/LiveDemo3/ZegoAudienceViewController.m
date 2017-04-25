@@ -192,6 +192,9 @@
 {
     NSLog(@"%s, streamID %@", __func__, streamID);
     
+    NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"第一帧画面, 流ID:%@", nil), streamID];
+    [self addLogString:logString];
+    
     [self setButtonHidden:NO];
     [self setBackgroundImage:nil playerView:self.playViewContainer];
     
@@ -230,7 +233,7 @@
 {
     for (ZegoUserState *state in userList)
     {
-        if (state.role == ZEGO_ANCHOR)
+        if (state.role == ZEGO_ANCHOR && state.updateFlag == ZEGO_USER_DELETE)
         {
             NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"主播已退出：%@", nil), state.userName];
             [self addLogString:logString];

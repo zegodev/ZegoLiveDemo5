@@ -219,7 +219,7 @@ public class PublishFragment extends AbsBaseFragment {
 
         String publishTitle = etPublishTitle.getText().toString();
         if (TextUtils.isEmpty(publishTitle)) {
-            publishTitle = PreferenceUtil.getInstance().getUserName();
+            publishTitle = "Hello-" + PreferenceUtil.getInstance().getUserName();
         }
 
         hideInputWindow();

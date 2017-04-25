@@ -2,17 +2,13 @@ package com.zego.livedemo5;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.tencent.bugly.crashreport.CrashReport;
-import com.zego.livedemo5.presenters.BizLivePresenter;
+import com.zego.livedemo5.utils.LiveQualityLogger;
 import com.zego.livedemo5.utils.PreferenceUtil;
-import com.zego.livedemo5.videocapture.VideoCaptureFactoryDemo;
-import com.zego.livedemo5.videofilter.VideoFilterFactoryDemo;
-import com.zego.zegoliveroom.ZegoLiveRoom;
 
 
 /**
@@ -37,14 +33,16 @@ public class ZegoApplication extends Application implements Thread.UncaughtExcep
 
 
         // bugly初始化用户id
-        CrashReport.initCrashReport(getApplicationContext(), "e40f06d75c", false);
+        CrashReport.initCrashReport(getApplicationContext(), "2da9d0c1ef", false);
         CrashReport.setUserId(PreferenceUtil.getInstance().getUserID());
-
 
 //        // 获取系统默认的UncaughtException处理器
 //        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
 //        // 设置该CrashHandler为程序的默认处理器
 //        Thread.setDefaultUncaughtExceptionHandler(this);
+
+        // delete latest traffic log then create a new log file
+        LiveQualityLogger.openAndReset();
     }
 
     public Context getApplicationContext(){

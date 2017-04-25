@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
@@ -39,10 +40,12 @@ import com.zego.livedemo5.ui.activities.base.AbsBaseLiveActivity;
 import com.zego.livedemo5.ui.adapters.CommentsAdapter;
 import com.zego.livedemo5.ui.widgets.PublishSettingsPannel;
 import com.zego.livedemo5.ui.widgets.ViewLive;
+import com.zego.livedemo5.utils.LiveQualityLogger;
 import com.zego.livedemo5.utils.PreferenceUtil;
 import com.zego.livedemo5.utils.ZegoRoomUtil;
 import com.zego.zegoliveroom.ZegoLiveRoom;
 import com.zego.zegoliveroom.callback.IZegoResponseCallback;
+import com.zego.zegoliveroom.callback.im.IZegoRoomMessageCallback;
 import com.zego.zegoliveroom.constants.ZegoAvConfig;
 import com.zego.zegoliveroom.constants.ZegoConstants;
 import com.zego.zegoliveroom.constants.ZegoIM;
@@ -85,6 +88,8 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
     protected TextView mTvSpeaker = null;
 
     protected EditText mEdtMessage = null;
+
+    protected TextView mTvSendRoomMsg = null;
 
     protected BottomSheetBehavior mBehavior = null;
 
@@ -168,6 +173,7 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
 
     @Override
     protected void initExtraData(Bundle savedInstanceState) {
+        LiveQualityLogger.open();
     }
 
 
@@ -290,7 +296,8 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
 
         mTvSpeaker.setSelected(!mEnableSpeaker);
 
-        findViewById(R.id.tv_send).setOnClickListener(new View.OnClickListener() {
+        mTvSendRoomMsg = (TextView) findViewById(R.id.tv_send);
+        mTvSendRoomMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendRoomMessage();
@@ -801,8 +808,11 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
     protected void handlePublishQualityUpdate(String streamID, int quality, double videoFPS, double videoBitrate) {
         ViewLive viewLive = getViewLiveByStreamID(streamID);
         if (viewLive != null) {
-            viewLive.setLiveQuality(quality);
+            viewLive.setLiveQuality(quality, videoFPS, videoBitrate);
         }
+
+        // for espresso test, don't delete the log
+        LiveQualityLogger.write("publishStreamQuality:%d, streamId: %s, videoFPS: %.2f, videoBitrate: %.2fKb/s", quality, streamID, videoFPS, videoBitrate);
     }
 
     protected AuxData handleAuxCallback(int dataLen) {
@@ -843,8 +853,11 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
     protected void handlePlayQualityUpdate(String streamID, int quality, double videoFPS, double videoBitrate) {
         ViewLive viewLive = getViewLiveByStreamID(streamID);
         if (viewLive != null) {
-            viewLive.setLiveQuality(quality);
+            viewLive.setLiveQuality(quality, videoFPS, videoBitrate);
         }
+
+        // for espresso test, don't delete the log
+        LiveQualityLogger.write("playStreamQuality: %d, streamId: %s, videoFPS: %.2f, videoBitrate: %.2fKb/s", quality, streamID, videoFPS, videoBitrate);
     }
 
     /**
@@ -937,6 +950,44 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
         }
     }
 
+    protected void doSendRoomMsg(final String msg){
+        if(TextUtils.isEmpty(msg)){
+            Toast.makeText(this, getString(R.string.message_can_not_be_empty), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mTvSendRoomMsg.setEnabled(false);
+
+        ZegoRoomMessage roomMessage = new ZegoRoomMessage();
+        roomMessage.fromUserID = PreferenceUtil.getInstance().getUserID();
+        roomMessage.fromUserName = getString(R.string.me);
+        roomMessage.content = msg;
+        roomMessage.messageType = ZegoIM.MessageType.Text;
+        roomMessage.messageCategory =  ZegoIM.MessageCategory.Chat;
+        roomMessage.messagePriority = ZegoIM.MessagePriority.Default;
+
+        mCommentsAdapter.addMsg(roomMessage);
+        mLvComments.post(new Runnable() {
+            @Override
+            public void run() {
+                // 滚动到最后一行
+                mLvComments.setSelection(mCommentsAdapter.getListMsg().size() - 1);
+            }
+        });
+
+        mZegoLiveRoom.sendRoomMessage(ZegoIM.MessageType.Text, ZegoIM.MessageCategory.Chat, ZegoIM.MessagePriority.Default, msg, new IZegoRoomMessageCallback() {
+            @Override
+            public void onSendRoomMessage(int errorCode, String roomID, long messageID) {
+                mTvSendRoomMsg.setEnabled(true);
+                if (errorCode == 0) {
+                    recordLog(MY_SELF + ": 发送房间消息成功, roomID:" + roomID);
+                } else {
+                    recordLog(MY_SELF + ": 发送房间消息失败, roomID:" + roomID + ", messageID:" + messageID);
+                }
+            }
+        });
+    }
+
     /**
      * 会话消息.
      */
@@ -961,6 +1012,7 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
 
         // 退出房间
         mZegoLiveRoom.logoutRoom();
+        LiveQualityLogger.close();
     }
 
 

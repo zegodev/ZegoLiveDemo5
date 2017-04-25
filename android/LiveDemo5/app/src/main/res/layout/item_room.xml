@@ -25,10 +25,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/civ_avatar"
-                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginLeft="@dimen/dimen_5"
                 android:layout_toRightOf="@id/civ_avatar"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_4"
+                android:textSize="@dimen/text_size_3"
                 tools:text="user313"/>
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/civ_avatar"
-                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginLeft="@dimen/dimen_5"
                 android:layout_toRightOf="@id/civ_avatar"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/text_size_2"

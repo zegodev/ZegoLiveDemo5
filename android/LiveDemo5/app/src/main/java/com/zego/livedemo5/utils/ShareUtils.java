@@ -47,11 +47,11 @@ public class ShareUtils {
      *
      * @param listShareUrls
      */
-    public void shareToQQ(Activity activity, List<String> listShareUrls, String bizToken, String bizID, String streamID) {
+    public void shareToQQ(Activity activity, List<String> listShareUrls, String bizID, String streamID) {
         if (listShareUrls != null && listShareUrls.size() >=2 && activity != null) {
 
-            String url = "http://www.zego.im/share/index?video=" + listShareUrls.get(0) + "&rtmp=" + listShareUrls.get(1) + "&token=" + bizToken
-                    + "&id=" + bizID + "stream=" + streamID;
+            String url = "http://www.zego.im/share/index2?video=" + listShareUrls.get(0) + "&rtmp=" + listShareUrls.get(1) +
+                    "&id=" + bizID + "stream=" + streamID;
 
             Bundle params = new Bundle();
             params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);

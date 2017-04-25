@@ -150,8 +150,10 @@
     if (roomID.length == 0)
         return YES;
     
+    ZegoRoomInfo *info = [ZegoRoomInfo new];
+    info.roomID = roomID;
     
-    UIViewController *controller = [[ZegoSettings sharedInstance] getViewControllerFromRoomID:roomID];
+    UIViewController *controller = [[ZegoSettings sharedInstance] getViewControllerFromRoomInfo:info];
     if (controller)
         [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
     

@@ -14,7 +14,7 @@
 #import "ZegoAudienceViewController.h"
 #import "ZegoMoreAudienceViewController.h"
 #import "ZegoMixStreamAudienceViewController.h"
-
+#import "ZegoWerewolfInTurnViewController.h"
 
 NSString *kZegoDemoUserIDKey            = @"userid";
 NSString *kZegoDemoUserNameKey          = @"username";
@@ -25,6 +25,10 @@ NSString *kZegoDemoVideoHeightKey       = @"resolution-height";
 NSString *kZegoDemoVideoFrameRateKey    = @"framerate";
 NSString *kZegoDemoVideoBitRateKey      = @"bitrate";
 NSString *kZeogDemoBeautifyFeatureKey = @"beautify_feature";
+
+NSString *kZegoDemoWolfResolutionKey    = @"wolfResolution";
+NSString *kZegoDemoWolfModeKey          = @"wolfMode";
+NSString *kZegoDemoWolfLowDelayKey      = @"wolfLowDelay";
 
 @implementation ZegoSettings
 {
@@ -53,6 +57,7 @@ NSString *kZeogDemoBeautifyFeatureKey = @"beautify_feature";
                                     NSLocalizedString(@"高质量", nil),
                                     NSLocalizedString(@"超高质量", nil),
                                     NSLocalizedString(@"自定义", nil)];
+        
         [self loadConfig];
     }
     
@@ -95,6 +100,7 @@ NSString *kZeogDemoBeautifyFeatureKey = @"beautify_feature";
         _userID = userID;
         NSUserDefaults *ud = [self myUserDefaults];
         [ud setObject:_userID forKey:kZegoDemoUserIDKey];
+        [ZegoDemoHelper releaseApi];
     }
 }
 
@@ -136,6 +142,8 @@ NSString *kZeogDemoBeautifyFeatureKey = @"beautify_feature";
         _userName = userName;
         NSUserDefaults *ud = [self myUserDefaults];
         [ud setObject:_userName forKey:kZegoDemoUserNameKey];
+        
+        [ZegoDemoHelper releaseApi];
     }
 }
 
@@ -275,8 +283,9 @@ NSString *kZeogDemoBeautifyFeatureKey = @"beautify_feature";
 }
 
 
-- (UIViewController *)getViewControllerFromRoomID:(NSString *)roomID
+- (UIViewController *)getViewControllerFromRoomInfo:(ZegoRoomInfo *)roomInfo
 {
+    NSString *roomID = roomInfo.roomID;
     NSUInteger liveType = 2; // * 默认play 连麦模式
     if ([roomID hasPrefix:@"#d-"])
     {
@@ -289,6 +298,14 @@ NSString *kZeogDemoBeautifyFeatureKey = @"beautify_feature";
     else if ([roomID hasPrefix:@"#s-"])
     {
         liveType = 3;
+    }
+    else if ([roomID hasPrefix:@"#w-"])
+    {
+        liveType = 4;
+    }
+    else if ([roomID hasPrefix:@"#i-"])
+    {
+        liveType = 5;
     }
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -318,6 +335,16 @@ NSString *kZeogDemoBeautifyFeatureKey = @"beautify_feature";
         ZegoMixStreamAudienceViewController *audienceViewController = (ZegoMixStreamAudienceViewController *)[storyboard instantiateViewControllerWithIdentifier:@"mixStreamAudienceID"];
         audienceViewController.roomID = roomID;
         return audienceViewController;
+    }
+    else if (liveType == 5)
+    {
+        ZegoWerewolfInTurnViewController *wolfViewController = (ZegoWerewolfInTurnViewController *)[storyboard instantiateViewControllerWithIdentifier:@"werewolfInTurnID"];
+        
+        wolfViewController.roomID = roomID;
+        wolfViewController.anchorID = roomInfo.anchorID;
+        wolfViewController.anchorName = roomInfo.anchorName;
+    
+        return wolfViewController;
     }
     else
     {

@@ -23,20 +23,19 @@ public class ZegoRoomUtil {
 
     public static String getRoomID(int roomType){
         String roomID = null;
-
         switch (roomType){
             case ROOM_TYPE_SINGLE:
-                roomID = ROOM_PREFIX_SINGLE_ANCHOR + PreferenceUtil.getInstance().getUserID();
+                roomID = ROOM_PREFIX_SINGLE_ANCHOR;
                 break;
             case ROOM_TYPE_MORE:
-                roomID = ROOM_PREFIX_MORE_ANCHORS + PreferenceUtil.getInstance().getUserID();
+                roomID = ROOM_PREFIX_MORE_ANCHORS;
                 break;
             case ROOM_TYPE_MIX:
-                roomID = ROOM_PREFIX_MIX_STREAM + PreferenceUtil.getInstance().getUserID();
+                roomID = ROOM_PREFIX_MIX_STREAM;
                 break;
         }
 
-        return roomID;
+        return roomID + "-" + PreferenceUtil.getInstance().getUserID();
     }
 
     public static String getPublishStreamID(){

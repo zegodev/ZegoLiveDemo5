@@ -38,8 +38,8 @@
 @property (nonatomic, strong) NSMutableDictionary *streamID2SizeDict;
 @property (nonatomic, strong) NSMutableDictionary *videoSizeDict;
 
-@property (nonatomic, strong) NSString *mixStreamID;
-@property (nonatomic, strong) NSString *anchorStreamID;
+@property (nonatomic, copy) NSString *mixStreamID;
+@property (nonatomic, copy) NSString *anchorStreamID;
 
 @property (nonatomic, strong) NSMutableArray<ZegoStream *> *singleStreamList;
 @property (nonatomic, strong) UIView *mixStreamPlayView;
@@ -362,6 +362,9 @@
 {
     NSLog(@"%s, streamID %@", __func__, streamID);
     
+    NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"第一帧画面, 流ID:%@", nil), streamID];
+    [self addLogString:logString];
+    
     if (self.optionButton.alpha == 0)
     {
         [self setButtonHidden:NO];
@@ -432,11 +435,13 @@
         
         NSString *sharedHls = [info[kZegoHlsUrlListKey] firstObject];
         NSString *sharedRtmp = [info[kZegoRtmpUrlListKey] firstObject];
-        
-        NSDictionary *dict = @{kFirstAnchor: @(NO), kHlsKey: sharedHls, kRtmpKey: sharedRtmp};
-        NSString *jsonString = [self encodeDictionaryToJSON:dict];
-        if (jsonString)
-            [[ZegoDemoHelper api] updateStreamExtraInfo:jsonString];
+        if (sharedHls.length > 0 && sharedRtmp.length > 0)
+        {
+            NSDictionary *dict = @{kFirstAnchor: @(NO), kHlsKey: sharedHls, kRtmpKey: sharedRtmp};
+            NSString *jsonString = [self encodeDictionaryToJSON:dict];
+            if (jsonString)
+                [[ZegoDemoHelper api] updateStreamExtraInfo:jsonString];
+        }
     }
     else
     {
@@ -483,7 +488,7 @@
 {
     for (ZegoUserState *state in userList)
     {
-        if (state.role == ZEGO_ANCHOR)
+        if (state.role == ZEGO_ANCHOR && state.updateFlag == ZEGO_USER_DELETE)
         {
             NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"主播已退出：%@", nil), state.userName];
             [self addLogString:logString];

@@ -47,7 +47,10 @@
 
 - (void)onLogUpdate:(NSNotification *)notification
 {
+    CGPoint contentOffset = self.tableView.contentOffset;
+    contentOffset.y += [self tableView:self.tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self.tableView reloadData];
+    [self.tableView setContentOffset:contentOffset];
 }
 
 #pragma mark - Table view data source

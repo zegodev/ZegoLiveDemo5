@@ -61,7 +61,6 @@ typedef void(^ZegoConversationInfoBlock)(int errorCode, NSString *roomId, NSStri
 /// \brief 房间成员更新回调
 /// \param userList 成员更新列表
 /// \param type 更新类型(增量，全量)
-/// \note 目前只在直播场景 主播退出时回调
 - (void)onUserUpdate:(NSArray<ZegoUserState *> *)userList updateType:(ZegoUserUpdateType)type;
 
 /// \brief 收到房间的广播消息

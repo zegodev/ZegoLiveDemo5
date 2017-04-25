@@ -67,6 +67,34 @@
     [self.likeTapView addGestureRecognizer:likeTapGestureRecognizer];
 }
 
+#pragma mark rotate
+- (void)updateTopViewConstraints
+{
+    self.topViewHeightConstraint.constant = CGRectGetHeight(self.view.frame) - self.topViewBottomConstraint.constant - self.commentViewHeightConstraint.constant;
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        
+        [self updateTopViewConstraints];
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        
+    }];
+    
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self updateTopViewConstraints];
+    
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 {

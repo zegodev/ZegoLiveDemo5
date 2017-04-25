@@ -687,7 +687,7 @@ public abstract class BaseExternalRenderActivity extends AbsBaseLiveActivity {
     protected void handlePublishQualityUpdate(String streamID, int quality, double videoFPS, double videoBitrate) {
         ViewLive viewLive = getViewLiveByStreamID(streamID);
         if (viewLive != null) {
-            viewLive.setLiveQuality(quality);
+            viewLive.setLiveQuality(quality, videoFPS, videoBitrate);
         }
     }
 
@@ -767,7 +767,7 @@ public abstract class BaseExternalRenderActivity extends AbsBaseLiveActivity {
     protected void handlePlayQualityUpdate(String streamID, int quality, double videoFPS, double videoBitrate) {
         ViewLive viewLive = getViewLiveByStreamID(streamID);
         if (viewLive != null) {
-            viewLive.setLiveQuality(quality);
+            viewLive.setLiveQuality(quality, videoFPS, videoBitrate);
         }
     }
 

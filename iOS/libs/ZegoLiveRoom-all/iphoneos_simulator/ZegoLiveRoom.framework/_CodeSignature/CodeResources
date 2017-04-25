@@ -14,11 +14,11 @@
 		</data>
 		<key>Headers/ZegoLiveRoomApi-IM.h</key>
 		<data>
-		q9Tv5Ppk4NBnN9rLy3OxVa0vABY=
+		Ebwu9gZrp89ny3ID90s4V/YAGqk=
 		</data>
 		<key>Headers/ZegoLiveRoomApi-Player.h</key>
 		<data>
-		WHNEQF2VHj1dY5F54wJOjci5mAk=
+		GKYOTFMJ7DwxoP/OvDJH6gLiuCY=
 		</data>
 		<key>Headers/ZegoLiveRoomApi-Publisher.h</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Headers/ZegoLiveRoomApi.h</key>
 		<data>
-		LDF/xeOtBmTtSIlMs5Ga2vLb9ic=
+		n1Ab3sjoWCK731WOeMYVy9lFB0s=
 		</data>
 		<key>Headers/ZegoLiveRoomApiDefines-IM.h</key>
 		<data>
@@ -42,15 +42,15 @@
 		</data>
 		<key>Headers/ZegoLiveRoomApiDefines.h</key>
 		<data>
-		yHlUmEZhGjJhTElb17CTxjnvW1Q=
+		RJZjAfhlSY7HS34EUBUSA3fHuPw=
 		</data>
 		<key>Headers/ZegoVideoCapture.h</key>
 		<data>
-		RqkdZdnT5yem/HI15UctB9+puy0=
+		1SbC9AbWchQ72dhJIsUwzbWqhJg=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		6Zd0u+DmZ739KwXQzBAQ/mxRpaA=
+		Tc9Nmtr1s82OOeN+Cj86am24lfc=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -85,22 +85,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			q9Tv5Ppk4NBnN9rLy3OxVa0vABY=
+			Ebwu9gZrp89ny3ID90s4V/YAGqk=
 			</data>
 			<key>hash2</key>
 			<data>
-			kVIf8qCGfxnaZj2RCM8dwo+8+DDMsjmm9EliYcQrWhE=
+			qs99QqGkxLfTqf5bCBB73UYwMPaMyoZVD94F7sh1zLU=
 			</data>
 		</dict>
 		<key>Headers/ZegoLiveRoomApi-Player.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			WHNEQF2VHj1dY5F54wJOjci5mAk=
+			GKYOTFMJ7DwxoP/OvDJH6gLiuCY=
 			</data>
 			<key>hash2</key>
 			<data>
-			7VNrCgps03ZVql81sW2exBL7k2AyZ1CBaWzor584A1E=
+			r/GfSlHl/owHdol0d7ZdSQGxtDVDrylyT5J6EXImfaU=
 			</data>
 		</dict>
 		<key>Headers/ZegoLiveRoomApi-Publisher.h</key>
@@ -129,11 +129,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LDF/xeOtBmTtSIlMs5Ga2vLb9ic=
+			n1Ab3sjoWCK731WOeMYVy9lFB0s=
 			</data>
 			<key>hash2</key>
 			<data>
-			IGYdw4GW9CAfdli5Wn1xyz/JFkvTzQqbCpu1DFkE70I=
+			SysQ1nHz7XX9iSGmQy7HNohc/IAlXAptFm6mLecDnig=
 			</data>
 		</dict>
 		<key>Headers/ZegoLiveRoomApiDefines-IM.h</key>
@@ -162,22 +162,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yHlUmEZhGjJhTElb17CTxjnvW1Q=
+			RJZjAfhlSY7HS34EUBUSA3fHuPw=
 			</data>
 			<key>hash2</key>
 			<data>
-			AhIdn3s5unodzxUOEcH/4t654Lr02Nm2hDiY31vTiHk=
+			EGtwNhOmN91aIrz6EF9gRzbQIX4LFuXqiw3+w+B92qs=
 			</data>
 		</dict>
 		<key>Headers/ZegoVideoCapture.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			RqkdZdnT5yem/HI15UctB9+puy0=
+			1SbC9AbWchQ72dhJIsUwzbWqhJg=
 			</data>
 			<key>hash2</key>
 			<data>
-			GCHmeFOOf6LY7Hb/gdovYQZitIPgCySjnaSk2DMJ2vg=
+			sk0M/+bS+aO2B12fxsXXL8UTVC4OJuoGI/cgxx6saM0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

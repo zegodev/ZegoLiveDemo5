@@ -51,6 +51,13 @@ public class CommentsAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addMsg(ZegoRoomMessage msg){
+        if(msg != null){
+            mListMsg.add(msg);
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         ViewHolder holder;

@@ -147,7 +147,7 @@
     self.viewContainersDict[self.streamID] = self.publishView;
     CGSize videoSize = [ZegoSettings sharedInstance].currentConfig.videoEncodeResolution;
     
-    [[ZegoDemoHelper api] setMixStreamConfig:@{kZegoMixStreamIDKey: self.mixStreamID, kZegoMixStreamResolution: [NSValue valueWithCGSize:videoSize]}];
+    [[ZegoDemoHelper api] setMixStreamConfig:@{kZegoMixStreamIDKey: self.mixStreamID, kZegoMixStreamResolution: [NSValue valueWithCGSize:CGSizeMake(2*videoSize.width, 2*videoSize.height)]}];
     
     bool b = [[ZegoDemoHelper api] startPublishing:self.streamID title:self.liveTitle flag:ZEGO_MIX_STREAM];
     if (b)
@@ -177,7 +177,7 @@
     
     [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"开始登录房间", nil)]];
     
-    [[ZegoDemoHelper api] loginRoom:self.roomID role:ZEGO_ANCHOR withCompletionBlock:^(int errorCode, NSArray<ZegoStream *> *streamList) {
+    [[ZegoDemoHelper api] loginRoom:self.roomID roomName:self.liveTitle role:ZEGO_ANCHOR withCompletionBlock:^(int errorCode, NSArray<ZegoStream *> *streamList) {
         NSLog(@"%s, error: %d", __func__, errorCode);
         if (errorCode == 0)
         {
@@ -344,6 +344,9 @@
 {
     if (![self isStreamIDExist:streamID])
         return;
+    
+    NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"第一帧画面, 流ID:%@", nil), streamID];
+    [self addLogString:logString];
     
     UIView *view = self.viewContainersDict[streamID];
     if (view == nil)

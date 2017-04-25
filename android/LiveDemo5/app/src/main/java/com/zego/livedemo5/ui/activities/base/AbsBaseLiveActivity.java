@@ -79,4 +79,6 @@ public abstract class AbsBaseLiveActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
+
+
 }

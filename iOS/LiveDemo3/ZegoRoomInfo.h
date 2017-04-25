@@ -13,5 +13,6 @@
 @property (nonatomic, copy) NSString *roomID;
 @property (nonatomic, copy) NSString *anchorID;
 @property (nonatomic, copy) NSString *anchorName;
+@property (nonatomic, copy) NSString *roomName;
 
 @end

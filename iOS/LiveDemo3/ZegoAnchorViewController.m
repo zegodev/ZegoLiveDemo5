@@ -155,7 +155,7 @@
     self.roomID = [ZegoDemoHelper getMyRoomID:SinglePublisherRoom];
     self.streamID = [ZegoDemoHelper getPublishStreamID];
 
-    [[ZegoDemoHelper api] loginRoom:self.roomID role:ZEGO_ANCHOR withCompletionBlock:^(int errorCode, NSArray<ZegoStream *> *streamList) {
+    [[ZegoDemoHelper api] loginRoom:self.roomID roomName:self.liveTitle role:ZEGO_ANCHOR  withCompletionBlock:^(int errorCode, NSArray<ZegoStream *> *streamList) {
         NSLog(@"%s, error: %d", __func__, errorCode);
         if (errorCode == 0)
         {

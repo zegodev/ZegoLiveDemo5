@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 
 
 import com.zego.livedemo5.R;
@@ -48,5 +49,17 @@ public class SystemUtil {
             }
         }
         return false;
+    }
+
+    static public String getOsInfo() {
+
+        // 上报系统信息
+        StringBuilder oriInfo = new StringBuilder();
+        oriInfo.append(Build.MODEL);
+
+        // 替换字符串中的","
+        String finalInfo = oriInfo.toString().replaceAll(",", ".");
+
+        return finalInfo;
     }
 }

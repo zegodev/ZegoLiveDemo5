@@ -84,13 +84,25 @@
     [self getLiveRoom];
 }
 
+- (BOOL)isWereWolfRoom:(NSString *)roomID
+{
+    if ([roomID hasPrefix:@"#i-"] || [roomID hasPrefix:@"#w-"])
+        return YES;
+    
+    return NO;
+}
+
 - (void)getLiveRoom
 {
     [self.refreshControl beginRefreshing];
     
-    NSString *baseUrl =@"https://test2-liveroom-api.zego.im";
-    if(![ZegoDemoHelper usingTestEnv])
-        baseUrl = @"https://liveroom1-api.zego.im";
+    NSString *baseUrl = nil;
+    if ([ZegoDemoHelper usingAlphaEnv])
+        baseUrl = @"https://alpha-liveroom-api.zego.im";
+    else if([ZegoDemoHelper usingTestEnv])
+        baseUrl =@"https://test2-liveroom-api.zego.im";
+    else
+        baseUrl = [NSString stringWithFormat:@"https://liveroom%u-api.zego.im", [ZegoDemoHelper appID]];
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/demo/roomlist?appid=%u", baseUrl, [ZegoDemoHelper appID]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
@@ -141,8 +153,19 @@
                         info.roomID = infoDict[@"room_id"];
                         if (info.roomID.length == 0)
                             continue;
+                        
+                        //非狼人杀模式下，过滤掉没有流信息的房间
+                        if (![self isWereWolfRoom:info.roomID] &&
+                            [infoDict objectForKey:@"stream_info"])
+                        {
+                            NSArray *streamList = infoDict[@"stream_info"];
+                            if (streamList.count == 0)
+                                continue;
+                        }
+                        
                         info.anchorID = infoDict[@"anchor_id_name"];
                         info.anchorName = infoDict[@"anchor_nick_name"];
+                        info.roomName = infoDict[@"room_name"];
                         
                         [self.roomList addObject:info];
                     }
@@ -176,10 +199,17 @@
     
     ZegoRoomInfo *info = self.roomList[indexPath.row];
     
-    if (info.anchorName.length == 0)
-        cell.publishTitleLabel.text = NSLocalizedString(@"Empty Title", nil);
+    if (info.roomName.length == 0)
+    {
+        if (info.anchorName.length == 0)
+            cell.publishTitleLabel.text = info.roomID;
+        else
+            cell.publishTitleLabel.text = info.anchorName;
+    }
     else
-        cell.publishTitleLabel.text = info.anchorName;
+    {
+        cell.publishTitleLabel.text = info.roomName;
+    }
     
 //    if (info.livesCount > 1)
 //    {
@@ -204,7 +234,7 @@
     
     ZegoRoomInfo *info = [self.roomList objectAtIndex:indexPath.row];
     
-    UIViewController *controller = [[ZegoSettings sharedInstance] getViewControllerFromRoomID:info.roomID];
+    UIViewController *controller = [[ZegoSettings sharedInstance] getViewControllerFromRoomInfo:info];
     if (controller)
         [self presentViewController:controller animated:YES completion:nil];
     

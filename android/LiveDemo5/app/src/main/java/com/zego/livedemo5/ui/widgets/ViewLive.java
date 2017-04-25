@@ -180,7 +180,7 @@ public class ViewLive extends RelativeLayout {
                 @Override
                 public void onClick(View v) {
                     if(mActivityHost != null && mShareToQQCallback != null){
-                        ShareUtils.getInstance().shareToQQ(mActivityHost, mListShareUrls, null, mShareToQQCallback.getRoomID(), mStreamID);
+                        ShareUtils.getInstance().shareToQQ(mActivityHost, mListShareUrls, mShareToQQCallback.getRoomID(), mStreamID);
                     }
                 }
             });
@@ -295,6 +295,11 @@ public class ViewLive extends RelativeLayout {
             mTvQualityColor.setBackgroundResource(mArrColor[quality]);
             mTvQuality.setText(mResources.getString(R.string.live_quality, mArrLiveQuality[quality]));
         }
+    }
+
+    public void setLiveQuality(int quality, double videoFPS, double videoBitrates) {
+        setLiveQuality(quality);
+        mTvQuality.append(mResources.getString(R.string.live_quality_fps_and_bitrate, videoFPS, videoBitrates));
     }
 
 

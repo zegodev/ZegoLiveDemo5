@@ -67,32 +67,43 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [ZegoSettings sharedInstance].presetVideoQualityList.count;
+    if (pickerView == self.presetPicker)
+        return [ZegoSettings sharedInstance].presetVideoQualityList.count;
+    else
+        return 0;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    if (row >= [ZegoSettings sharedInstance].presetVideoQualityList.count) {
-        return ;
+    if (pickerView == self.presetPicker)
+    {
+        if (row >= [ZegoSettings sharedInstance].presetVideoQualityList.count) {
+            return ;
+        }
+        
+        NSLog(@"%s: %@", __func__, [ZegoSettings sharedInstance].presetVideoQualityList[row]);
+        
+        [[ZegoSettings sharedInstance] selectPresetQuality:row];
+        
+        [self updateViedoSettingUI];
     }
     
-    NSLog(@"%s: %@", __func__, [ZegoSettings sharedInstance].presetVideoQualityList[row]);
-    
-    [[ZegoSettings sharedInstance] selectPresetQuality:row];
-    
-    [self updateViedoSettingUI];
+    return;
 }
 
 //返回当前行的内容,此处是将数组中数值添加到滚动的那个显示栏上
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    if (row >= [ZegoSettings sharedInstance].presetVideoQualityList.count) {
-        return @"ERROR";
-    }
+    if (pickerView == self.presetPicker)
+    {
+        if (row >= [ZegoSettings sharedInstance].presetVideoQualityList.count) {
+            return @"ERROR";
+        }
     
-    return [[ZegoSettings sharedInstance].presetVideoQualityList objectAtIndex:row];
+        return [[ZegoSettings sharedInstance].presetVideoQualityList objectAtIndex:row];
+    }
+    return nil;
 }
-
 
 - (void)loadAccountSettings {
     self.userID.text = [ZegoSettings sharedInstance].userID;
@@ -207,23 +218,10 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
     }
-    
-    //ios9 bug， 下面这段代码会crash
-//    else
-//    {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:message preferredStyle:UIAlertControllerStyleAlert];
-//        
-//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//        }];
-//        
-//        [alertController addAction:cancelAction];
-//        
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 3 || indexPath.section == 4)
+    if (indexPath.section == 3 || indexPath.section == 5)
         return YES;
     
     if (indexPath.section == 0 && indexPath.row == 1)

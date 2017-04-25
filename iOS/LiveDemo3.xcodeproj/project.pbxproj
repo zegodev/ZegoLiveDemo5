@@ -46,6 +46,13 @@
 		EF71E9CF1E67D06600723EF7 /* ZegoImageFilter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF71E9C81E67D06600723EF7 /* ZegoImageFilter.framework */; };
 		EF71E9D21E67D0A400723EF7 /* ZegoImageFilter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF71E9C31E67D06600723EF7 /* ZegoImageFilter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EF71EA341E72410800723EF7 /* ZegoLiveRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A745D7431E4B322E009A4265 /* ZegoLiveRoom.framework */; };
+		EF792F571E8BA68200A39DBC /* ZegoWerewolfHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF792F561E8BA68200A39DBC /* ZegoWerewolfHostViewController.m */; };
+		EF792F581E8BA68200A39DBC /* ZegoWerewolfHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF792F561E8BA68200A39DBC /* ZegoWerewolfHostViewController.m */; };
+		EF792F5B1E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF792F5A1E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.m */; };
+		EF792F5C1E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF792F5A1E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.m */; };
+		EF792F731E8DEF7400A39DBC /* ZegoLiveRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A745D7431E4B322E009A4265 /* ZegoLiveRoom.framework */; };
+		EF792F771E8DF49C00A39DBC /* GameLive.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EF1314341DAB752000FEBACF /* GameLive.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EF792F791E8DF4A100A39DBC /* GameLiveUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EF1314441DAB752000FEBACF /* GameLiveUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EF7BA6821E1C92FB0094BBA7 /* ZegoLiveToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7BA6811E1C92FB0094BBA7 /* ZegoLiveToolViewController.m */; };
 		EF7BA6831E1C92FB0094BBA7 /* ZegoLiveToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7BA6811E1C92FB0094BBA7 /* ZegoLiveToolViewController.m */; };
 		EF7BA68B1E1CDE8A0094BBA7 /* ZegoMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7BA68A1E1CDE8A0094BBA7 /* ZegoMessageTableViewCell.m */; };
@@ -110,6 +117,8 @@
 		EF871D2E1D1A437A00C2D08A /* ZegoVideoCaptureFromImage.m in Sources */ = {isa = PBXBuildFile; fileRef = EF871D2C1D1A437A00C2D08A /* ZegoVideoCaptureFromImage.m */; };
 		EF871D311D1A644800C2D08A /* ZegoAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF871D301D1A644800C2D08A /* ZegoAboutViewController.m */; };
 		EF871D341D1A68EC00C2D08A /* ZegoAnchorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF871D331D1A68EC00C2D08A /* ZegoAnchorViewController.m */; };
+		EF94F7911E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF94F7901E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.m */; };
+		EF94F7921E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF94F7901E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.m */; };
 		EF9A37F11D26481000A5E996 /* ZegoLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9A37F01D26481000A5E996 /* ZegoLogTableViewController.m */; };
 		EF9D0F521D20D20900002545 /* ZegoAudienceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9D0F511D20D20900002545 /* ZegoAudienceViewController.m */; };
 		EF9D0F5B1D2279F500002545 /* ZegoLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9D0F5A1D2279F500002545 /* ZegoLiveViewController.m */; };
@@ -166,6 +175,18 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EF792F781E8DF49C00A39DBC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EF792F791E8DF4A100A39DBC /* GameLiveUI.appex in Embed App Extensions */,
+				EF792F771E8DF49C00A39DBC /* GameLive.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -220,6 +241,10 @@
 		EF71E9C31E67D06600723EF7 /* ZegoImageFilter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZegoImageFilter.framework; sourceTree = "<group>"; };
 		EF71E9C61E67D06600723EF7 /* ZegoImageFilter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZegoImageFilter.framework; sourceTree = "<group>"; };
 		EF71E9C81E67D06600723EF7 /* ZegoImageFilter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZegoImageFilter.framework; sourceTree = "<group>"; };
+		EF792F551E8BA68200A39DBC /* ZegoWerewolfHostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoWerewolfHostViewController.h; sourceTree = "<group>"; };
+		EF792F561E8BA68200A39DBC /* ZegoWerewolfHostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoWerewolfHostViewController.m; sourceTree = "<group>"; };
+		EF792F591E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoWerewolfBaseViewController.h; sourceTree = "<group>"; };
+		EF792F5A1E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoWerewolfBaseViewController.m; sourceTree = "<group>"; };
 		EF7BA6801E1C92FB0094BBA7 /* ZegoLiveToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoLiveToolViewController.h; sourceTree = "<group>"; };
 		EF7BA6811E1C92FB0094BBA7 /* ZegoLiveToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoLiveToolViewController.m; sourceTree = "<group>"; };
 		EF7BA6891E1CDE8A0094BBA7 /* ZegoMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoMessageTableViewCell.h; sourceTree = "<group>"; };
@@ -295,6 +320,8 @@
 		EF871D301D1A644800C2D08A /* ZegoAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoAboutViewController.m; sourceTree = "<group>"; };
 		EF871D321D1A68EC00C2D08A /* ZegoAnchorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoAnchorViewController.h; sourceTree = "<group>"; };
 		EF871D331D1A68EC00C2D08A /* ZegoAnchorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoAnchorViewController.m; sourceTree = "<group>"; };
+		EF94F78F1E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoWerewolfInTurnViewController.h; sourceTree = "<group>"; };
+		EF94F7901E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoWerewolfInTurnViewController.m; sourceTree = "<group>"; };
 		EF9A37EF1D26481000A5E996 /* ZegoLogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoLogTableViewController.h; sourceTree = "<group>"; };
 		EF9A37F01D26481000A5E996 /* ZegoLogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoLogTableViewController.m; sourceTree = "<group>"; };
 		EF9D0F501D20D20900002545 /* ZegoAudienceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoAudienceViewController.h; sourceTree = "<group>"; };
@@ -338,6 +365,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF792F731E8DEF7400A39DBC /* ZegoLiveRoom.framework in Frameworks */,
 				EF1314371DAB752000FEBACF /* ReplayKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +443,19 @@
 				EF13144F1DAB752000FEBACF /* Info.plist */,
 			);
 			path = GameLiveUI;
+			sourceTree = "<group>";
+		};
+		EF15BF111E84CF1100E92AD9 /* Werewolf */ = {
+			isa = PBXGroup;
+			children = (
+				EF792F591E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.h */,
+				EF792F5A1E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.m */,
+				EF94F78F1E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.h */,
+				EF94F7901E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.m */,
+				EF792F551E8BA68200A39DBC /* ZegoWerewolfHostViewController.h */,
+				EF792F561E8BA68200A39DBC /* ZegoWerewolfHostViewController.m */,
+			);
+			name = Werewolf;
 			sourceTree = "<group>";
 		};
 		EF32D6F31D6599B700A764FC /* thirdLib */ = {
@@ -674,6 +715,7 @@
 				EF6867281E769CB2004E17D2 /* SingleAnchor */,
 				EF6867291E769CD0004E17D2 /* MoreAnchor */,
 				EF68672A1E769CE7004E17D2 /* MixStream */,
+				EF15BF111E84CF1100E92AD9 /* Werewolf */,
 				EFE0D8F81D1B7F920090F719 /* ZegoAnchorOptionViewController.h */,
 				EFE0D8F91D1B7F920090F719 /* ZegoAnchorOptionViewController.m */,
 				EF9D0F591D2279F500002545 /* ZegoLiveViewController.h */,
@@ -744,6 +786,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EF13145F1DAB752000FEBACF /* Build configuration list for PBXNativeTarget "GameLive" */;
 			buildPhases = (
+				EF792F7A1E8DFABC00A39DBC /* Copy ZegoLiveRoom for Development */,
+				EF792F7B1E8DFAEA00A39DBC /* Copy ZegoLiveRoom for Internal Development */,
+				EF792F7C1E8DFB1F00A39DBC /* Copy ZegoLiveRoom for Deployment */,
 				EF1314301DAB752000FEBACF /* Sources */,
 				EF1314311DAB752000FEBACF /* Frameworks */,
 				EF1314321DAB752000FEBACF /* Resources */,
@@ -803,6 +848,7 @@
 				EFF10EEF1D1A297900ECE11E /* Frameworks */,
 				EFF10EF01D1A297900ECE11E /* Resources */,
 				A775B03C1E458EFF00CEF3DC /* Embed Frameworks */,
+				EF792F781E8DF49C00A39DBC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -989,6 +1035,48 @@
 			shellPath = "/usr/bin/env python";
 			shellScript = "import os, shutil\n\nif os.path.exists('./libs/ZegoLiveRoom.framework'):\n    shutil.rmtree('./libs/ZegoLiveRoom.framework')\n\nshutil.copytree('./libs/ZegoLiveRoom-all/iphoneos_simulator_static/ZegoLiveRoom.framework', './libs/ZegoLiveRoom.framework')\nwith open('./libs/zegoliveroom.version.txt', 'w') as f:\n    f.write('release static')";
 		};
+		EF792F7A1E8DFABC00A39DBC /* Copy ZegoLiveRoom for Development */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy ZegoLiveRoom for Development";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/env python";
+			shellScript = "import os, shutil\n\nif not os.path.exists('./libs/ZegoLiveRoom.framework'):\n    shutil.copytree('./libs/ZegoLiveRoom-all/iphoneos_simulator/ZegoLiveRoom.framework', './libs/ZegoLiveRoom.framework')\n    with open('./libs/zegoliveroom.version.txt', 'w') as f:\n        f.write('release iphoneos & simulator')";
+		};
+		EF792F7B1E8DFAEA00A39DBC /* Copy ZegoLiveRoom for Internal Development */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy ZegoLiveRoom for Internal Development";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/env python";
+			shellScript = "import os\n\nhelper_file_name = '../copy_libs.py'\nif os.path.exists(helper_file_name):\n    import imp\n    module_path = os.path.realpath(helper_file_name)\n    copy_libs = imp.load_source('copy_libs', module_path)\n    copy_libs.copy_libs('LiveDemo3', 'ZegoLiveRoom', False)\n    with open('./libs/zegoliveroom.version.txt', 'w') as f:\n        f.write('debug iphoneos & simulator')";
+		};
+		EF792F7C1E8DFB1F00A39DBC /* Copy ZegoLiveRoom for Deployment */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy ZegoLiveRoom for Deployment";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = "/usr/bin/env python";
+			shellScript = "import os, shutil\n\ndst_path = './libs/ZegoLiveRoom.framework'\nshutil.rmtree(dst_path, ignore_errors=True)\nshutil.copytree('./libs/ZegoLiveRoom-all/iphoneos/ZegoLiveRoom.framework', dst_path)\n\nwith open('./libs/zegoliveroom.version.txt', 'w') as f:\n    f.write('release iphoneos')";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1017,11 +1105,13 @@
 				EFAF4B351D2B6C7800560B00 /* video_capture_external_demo.m in Sources */,
 				EF7BA75E1E1E1CA40094BBA7 /* ZegoLikeView.m in Sources */,
 				EFAF4B361D2B6C7800560B00 /* AppDelegate.m in Sources */,
+				EF94F7921E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.m in Sources */,
 				EF7BA72C1E1D00CF0094BBA7 /* YYTextContainerView.m in Sources */,
 				EFAF4B371D2B6C7800560B00 /* ZegoAnchorOptionViewController.m in Sources */,
 				EF7BA7421E1D00CF0094BBA7 /* YYTextParser.m in Sources */,
 				EF3AA9681DAF7C3A00AF960C /* ZegoInstrument.m in Sources */,
 				EF7BA7461E1D00CF0094BBA7 /* YYTextRunDelegate.m in Sources */,
+				EF792F581E8BA68200A39DBC /* ZegoWerewolfHostViewController.m in Sources */,
 				EF7BA72E1E1D00CF0094BBA7 /* YYTextDebugOption.m in Sources */,
 				EFAF4B381D2B6C7800560B00 /* ZegoTabBarViewController.m in Sources */,
 				EF7BA7481E1D00CF0094BBA7 /* NSAttributedString+YYText.m in Sources */,
@@ -1034,6 +1124,7 @@
 				EF3AA96C1DB6016E00AF960C /* ZegoRenderAudienceViewController.m in Sources */,
 				EF7BA6831E1C92FB0094BBA7 /* ZegoLiveToolViewController.m in Sources */,
 				EFAF4B3B1D2B6C7800560B00 /* ZegoRoomInfo.m in Sources */,
+				EF792F5C1E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.m in Sources */,
 				EF7BA74E1E1D00CF0094BBA7 /* UIView+YYText.m in Sources */,
 				EF7BA7561E1D00CF0094BBA7 /* YYTextWeakProxy.m in Sources */,
 				EF7BA73A1E1D00CF0094BBA7 /* YYTextMagnifier.m in Sources */,
@@ -1079,11 +1170,13 @@
 				EF871D2D1D1A437A00C2D08A /* video_capture_external_demo.m in Sources */,
 				EF7BA75D1E1E1CA40094BBA7 /* ZegoLikeView.m in Sources */,
 				EFF10EFA1D1A297900ECE11E /* AppDelegate.m in Sources */,
+				EF94F7911E88E9BD00F2C71C /* ZegoWerewolfInTurnViewController.m in Sources */,
 				EF7BA72B1E1D00CF0094BBA7 /* YYTextContainerView.m in Sources */,
 				EFE0D8FA1D1B7F920090F719 /* ZegoAnchorOptionViewController.m in Sources */,
 				EF7BA7411E1D00CF0094BBA7 /* YYTextParser.m in Sources */,
 				EF3AA9671DAF7C3A00AF960C /* ZegoInstrument.m in Sources */,
 				EF7BA7451E1D00CF0094BBA7 /* YYTextRunDelegate.m in Sources */,
+				EF792F571E8BA68200A39DBC /* ZegoWerewolfHostViewController.m in Sources */,
 				EF7BA72D1E1D00CF0094BBA7 /* YYTextDebugOption.m in Sources */,
 				EF871D0F1D1A32FD00C2D08A /* ZegoTabBarViewController.m in Sources */,
 				EF7BA7471E1D00CF0094BBA7 /* NSAttributedString+YYText.m in Sources */,
@@ -1096,6 +1189,7 @@
 				EF3AA96B1DB6016E00AF960C /* ZegoRenderAudienceViewController.m in Sources */,
 				EF7BA6821E1C92FB0094BBA7 /* ZegoLiveToolViewController.m in Sources */,
 				EFE0D9341D1BC5860090F719 /* ZegoRoomInfo.m in Sources */,
+				EF792F5B1E8BA77B00A39DBC /* ZegoWerewolfBaseViewController.m in Sources */,
 				EF7BA74D1E1D00CF0094BBA7 /* UIView+YYText.m in Sources */,
 				EF7BA7551E1D00CF0094BBA7 /* YYTextWeakProxy.m in Sources */,
 				EF7BA7391E1D00CF0094BBA7 /* YYTextMagnifier.m in Sources */,
@@ -1308,13 +1402,13 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/libs/libsZegoAVKit2Release/Release-iphoneos",
-					"$(PROJECT_DIR)/libs/libsZegoLiveRoomRelease/Release-iphoneos",
+					"$(PROJECT_DIR)/libs",
 				);
 				INFOPLIST_FILE = GameLive/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo3.GameLive;
+				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo5.GameLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1335,13 +1429,22 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/libs/libsZegoAVKit2Release/Release-iphoneos",
-					"$(PROJECT_DIR)/libs/libsZegoLiveRoomRelease/Release-iphoneos",
+					"$(PROJECT_DIR)/libs",
 				);
 				INFOPLIST_FILE = GameLive/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo3.GameLive;
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-liconv",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreMedia,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo5.GameLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1362,13 +1465,13 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/libs/libsZegoAVKit2Release/Release-iphoneos",
-					"$(PROJECT_DIR)/libs/libsZegoLiveRoomRelease/Release-iphoneos",
+					"$(PROJECT_DIR)/libs",
 				);
 				INFOPLIST_FILE = GameLive/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo3.GameLive;
+				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo5.GameLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1389,13 +1492,22 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/libs/libsZegoAVKit2Release/Release-iphoneos",
-					"$(PROJECT_DIR)/libs/libsZegoLiveRoomRelease/Release-iphoneos",
+					"$(PROJECT_DIR)/libs",
 				);
 				INFOPLIST_FILE = GameLive/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo3.GameLive;
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-liconv",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreMedia,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo5.GameLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1416,7 +1528,8 @@
 				INFOPLIST_FILE = GameLiveUI/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo3.GameLiveUI;
+				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo5.GameLiveUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1437,7 +1550,17 @@
 				INFOPLIST_FILE = GameLiveUI/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo3.GameLiveUI;
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-liconv",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreMedia,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo5.GameLiveUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1458,7 +1581,8 @@
 				INFOPLIST_FILE = GameLiveUI/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo3.GameLiveUI;
+				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo5.GameLiveUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1479,7 +1603,17 @@
 				INFOPLIST_FILE = GameLiveUI/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo3.GameLiveUI;
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-liconv",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreMedia,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.LiveDemo5.GameLiveUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
