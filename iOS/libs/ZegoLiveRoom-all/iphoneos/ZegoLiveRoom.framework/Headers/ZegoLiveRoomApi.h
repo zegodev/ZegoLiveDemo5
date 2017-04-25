@@ -94,7 +94,7 @@ typedef void(^ZegoCustomCommandBlock)(int errorCode, NSString *roomID);
 
 
 // * devie
-
+#if TARGET_OS_IPHONE
 /// \brief 音视频设备错误通知回调
 /// \param deviceEventDelegate 音视频设备错误通知回调协议
 /// \return true 成功，false 失败
@@ -107,6 +107,13 @@ typedef void(^ZegoCustomCommandBlock)(int errorCode, NSString *roomID);
 /// \brief 恢复模块
 /// \param moduleType 模块类型，参考 ZegoAPIModuleType
 - (void)resumeModule:(int)moduleType;
+#endif
+
+#if TARGET_OS_OSX
+
++ (bool)setVideoDevice:(NSString *)deviceId;
+
+#endif
 
 @end
 
