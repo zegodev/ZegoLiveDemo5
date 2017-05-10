@@ -321,6 +321,9 @@ void CZegoEntryDlg::ParseRoomList(std::string json)
                 nAnchorSize = room["stream_info"].Size();
             }
 
+            if (nAnchorSize == 0)
+                continue;
+
             RoomPtr pRoom(new CZegoRoomModel(strRoomID, strRoomName, strAnchorID, strAnchorName));
             pRoom->SetLivesCount(nAnchorSize);
 
