@@ -22,6 +22,8 @@ import android.view.SurfaceView;
 import android.view.TextureView;
 
 
+import com.zego.livedemo5.videocapture.ve_gl.GlShader;
+import com.zego.livedemo5.videocapture.ve_gl.GlUtil;
 import com.zego.zegoliveroom.callback.IZegoExternalRenderCallback;
 
 import java.nio.ByteBuffer;
@@ -612,7 +614,7 @@ public class VideoRenderer implements Choreographer.FrameCallback, IZegoExternal
         pixelBuffer.width = width;
         pixelBuffer.height = height;
         mConsumeQueue.add(pixelBuffer);
-        mWriteIndex++;
+        mWriteIndex = (mWriteIndex + 1) % mProduceQueue.size();
     }
 
     private synchronized void returnProducerPixelBuffer(PixelBuffer pixelBuffer) {

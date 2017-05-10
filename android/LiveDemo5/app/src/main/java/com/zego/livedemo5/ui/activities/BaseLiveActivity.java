@@ -5,7 +5,6 @@ import android.Manifest;
 import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
@@ -33,7 +32,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.zego.livedemo5.R;
 import com.zego.livedemo5.ZegoApiManager;
 import com.zego.livedemo5.ui.activities.base.AbsBaseLiveActivity;
@@ -44,7 +42,6 @@ import com.zego.livedemo5.utils.LiveQualityLogger;
 import com.zego.livedemo5.utils.PreferenceUtil;
 import com.zego.livedemo5.utils.ZegoRoomUtil;
 import com.zego.zegoliveroom.ZegoLiveRoom;
-import com.zego.zegoliveroom.callback.IZegoResponseCallback;
 import com.zego.zegoliveroom.callback.im.IZegoRoomMessageCallback;
 import com.zego.zegoliveroom.constants.ZegoAvConfig;
 import com.zego.zegoliveroom.constants.ZegoConstants;
@@ -62,7 +59,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.OnClick;
 
@@ -78,8 +74,6 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
     protected LinkedList<ViewLive> mListViewLive = new LinkedList<>();
 
     protected LinkedList<String> mListLog = new LinkedList<>();
-
-    protected Map<String, Boolean> mMapReplayStreamID = new HashMap<>();
 
     protected TextView mTvPublisnControl = null;
 
@@ -134,9 +128,9 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
     protected AlertDialog mDialogHandleRequestPublish = null;
 
     /**
-     * 推流标记, 0:普通推流, 2: 混流
+     * 推流标记, PublishFlag.JoinPublish:连麦, PublishFlag.MixStream:混流, PublishFlag.SingleAnchor:单主播
      */
-    protected int mPublishFlag = 0;
+    protected int mPublishFlag = ZegoConstants.PublishFlag.JoinPublish;
 
     /**
      * app朝向, Surface.ROTATION_0或者Surface.ROTATION_180表示竖屏推流,
@@ -151,6 +145,8 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
     protected List<ZegoStreamInfo> mListStreamOfRoom = new ArrayList<>();
 
     protected String mMixStreamID = null;
+
+    protected List<ZegoUserState> mListRoomUser = new ArrayList<>();
 
     protected abstract void initPublishControlText();
 
@@ -685,7 +681,7 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
 
     protected void setPublishEnabled() {
         if (!mIsPublishing) {
-            if (mLiveCount < ZegoLiveRoom.getMaxPlayChannelCount() + 1) {
+            if (mLiveCount < ZegoLiveRoom.getMaxPlayChannelCount()) {
                 mTvPublisnControl.setEnabled(true);
             } else {
                 mTvPublisnControl.setEnabled(false);
@@ -773,9 +769,6 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
         mLiveCount++;
         setPublishEnabled();
 
-        // 记录流ID用于play失败后重新play
-        mMapReplayStreamID.put(streamID, false);
-
         mRlytControlHeader.bringToFront();
     }
 
@@ -790,14 +783,6 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
 
         mLiveCount--;
         setPublishEnabled();
-
-        // 当一条流play失败后重新play一次
-        if (stateCode == 2 && !TextUtils.isEmpty(streamID)) {
-            if (!mMapReplayStreamID.get(streamID)) {
-                mMapReplayStreamID.put(streamID, true);
-                startPlay(streamID);
-            }
-        }
 
         mRlytControlHeader.bringToFront();
     }
@@ -919,7 +904,21 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
      * 用户更新.
      */
     protected void handleUserUpdate(ZegoUserState[] listUser, int updateType) {
+       if(listUser != null){
+           if(updateType == ZegoIM.UserUpdateType.Total){
+               mListRoomUser.clear();
+           }
 
+           if(updateType == ZegoIM.UserUpdateType.Increase){
+               for(ZegoUserState zegoUserState : listUser) {
+                   if(zegoUserState.updateFlag == ZegoIM.UserUpdateFlag.Added){
+                        mListRoomUser.add(zegoUserState);
+                   }else if(zegoUserState.updateFlag == ZegoIM.UserUpdateFlag.Deleted){
+                        mListRoomUser.remove(zegoUserState);
+                   }
+               }
+           }
+       }
     }
 
     /**
@@ -956,8 +955,6 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
             return;
         }
 
-        mTvSendRoomMsg.setEnabled(false);
-
         ZegoRoomMessage roomMessage = new ZegoRoomMessage();
         roomMessage.fromUserID = PreferenceUtil.getInstance().getUserID();
         roomMessage.fromUserName = getString(R.string.me);
@@ -978,7 +975,6 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
         mZegoLiveRoom.sendRoomMessage(ZegoIM.MessageType.Text, ZegoIM.MessageCategory.Chat, ZegoIM.MessagePriority.Default, msg, new IZegoRoomMessageCallback() {
             @Override
             public void onSendRoomMessage(int errorCode, String roomID, long messageID) {
-                mTvSendRoomMsg.setEnabled(true);
                 if (errorCode == 0) {
                     recordLog(MY_SELF + ": 发送房间消息成功, roomID:" + roomID);
                 } else {

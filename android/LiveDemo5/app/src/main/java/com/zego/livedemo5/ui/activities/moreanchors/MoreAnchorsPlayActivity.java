@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.zego.livedemo5.R;
@@ -48,6 +49,7 @@ public class MoreAnchorsPlayActivity extends BasePlayActivity {
     @Override
     protected void doBusiness(Bundle savedInstanceState) {
         super.doBusiness(savedInstanceState);
+
         mZegoLiveRoom.loginRoom(mRoomID, ZegoConstants.RoomRole.Audience, new IZegoLoginCompletionCallback() {
             @Override
             public void onLoginCompletion(int errorCode, ZegoStreamInfo[] zegoStreamInfos) {
@@ -151,6 +153,10 @@ public class MoreAnchorsPlayActivity extends BasePlayActivity {
 
             @Override
             public void onStreamExtraInfoUpdated(ZegoStreamInfo[] listStream, String roomID) {
+            }
+
+            @Override
+            public void onRecvCustomCommand(String userID, String userName, String content, String roomID) {
             }
         });
 

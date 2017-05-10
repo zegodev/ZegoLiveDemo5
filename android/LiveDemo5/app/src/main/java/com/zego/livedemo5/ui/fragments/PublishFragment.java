@@ -25,6 +25,7 @@ import android.widget.ToggleButton;
 
 import com.zego.livedemo5.R;
 import com.zego.livedemo5.ZegoApiManager;
+import com.zego.livedemo5.ui.activities.gamelive.GameLiveActivity;
 import com.zego.livedemo5.ui.activities.mixstream.MixStreamPublishActivity;
 import com.zego.livedemo5.ui.activities.moreanchors.MoreAnchorsPublishActivity;
 import com.zego.livedemo5.ui.activities.base.AbsBaseFragment;
@@ -240,6 +241,11 @@ public class PublishFragment extends AbsBaseFragment {
             @Override
             public void onMixStreamSelect() {
                 MixStreamPublishActivity.actionStart(mParentActivity, publishTitleTemp, tbEnableFrontCam.isChecked(), tbEnableTorch.isChecked(), mSelectedBeauty, mSelectedFilter, mParentActivity.getWindowManager().getDefaultDisplay().getRotation());
+            }
+
+            @Override
+            public void onGameLivingSelect() {
+                GameLiveActivity.actionStart(mParentActivity, publishTitleTemp, mParentActivity.getWindowManager().getDefaultDisplay().getRotation());
             }
         });
 

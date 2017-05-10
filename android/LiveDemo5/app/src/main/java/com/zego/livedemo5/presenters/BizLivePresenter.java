@@ -75,8 +75,8 @@ public class BizLivePresenter {
             public void run() {
                 RequestQueue mQueue = Volley.newRequestQueue(ZegoApplication.sApplicationContext);
                 long appID = ZegoApiManager.getInstance().getAppID();
-                String baseUrl = "https://liveroom" + appID + "-api.zego.im";
-                String url = baseUrl + "/demo/roomlist?appid=" + appID;
+                String domain = ZegoApiManager.getInstance().isInternationalProduct(appID) ? "zegocloud.com" : "zego.im";
+                String url = String.format("https://liveroom%d-api.%s/demo/roomlist?appid=%s", appID, domain, appID);
                 StringRequest request = new StringRequest(url,
                         new Response.Listener<String>() {
                             @Override

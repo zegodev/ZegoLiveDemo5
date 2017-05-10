@@ -14,11 +14,15 @@ public class ZegoRoomUtil {
 
     public static final int ROOM_TYPE_MIX = 3;
 
+    public static final int ROOM_TYPE_GAME = 4;
+
     public static final String ROOM_PREFIX_SINGLE_ANCHOR = "#d-";
 
     public static final String ROOM_PREFIX_MORE_ANCHORS = "#m-";
 
     public static final String ROOM_PREFIX_MIX_STREAM = "#s-";
+
+    public static final String ROOM_PREFIX_GAME_LIVING = "#g-";
 
 
     public static String getRoomID(int roomType){
@@ -32,6 +36,9 @@ public class ZegoRoomUtil {
                 break;
             case ROOM_TYPE_MIX:
                 roomID = ROOM_PREFIX_MIX_STREAM;
+                break;
+            case ROOM_TYPE_GAME:
+                roomID = ROOM_PREFIX_GAME_LIVING;
                 break;
         }
 

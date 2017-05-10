@@ -179,6 +179,11 @@ public class MixStreamPublishActivity extends BasePublishActivity {
             public void onStreamExtraInfoUpdated(ZegoStreamInfo[] zegoStreamInfos, String s) {
 
             }
+
+            @Override
+            public void onRecvCustomCommand(String userID, String userName, String content, String roomID) {
+
+            }
         });
 
 
@@ -335,8 +340,8 @@ public class MixStreamPublishActivity extends BasePublishActivity {
 
     @Override
     protected void initPublishConfigs() {
-        // 设置混流标记为2
-        mPublishFlag = 2;
+        // 混流模式
+        mPublishFlag = ZegoConstants.PublishFlag.MixStream;
         mMixStreamID = "mix-" + mPublishStreamID;
 
         // 混流配置

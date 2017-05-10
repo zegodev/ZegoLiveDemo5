@@ -48,6 +48,8 @@ public class ZegoApiManager {
 
     private boolean mUseRateControl = false;
 
+    private boolean mEnableAudioPrep = false;
+
     private long mAppID = 1;
 
     private ZegoApiManager() {
@@ -73,17 +75,12 @@ public class ZegoApiManager {
         // 开启测试环境
         if(mUseTestEvn){
             ZegoLiveRoom.setTestEnv(true);
-        }else {
-            ZegoLiveRoom.setTestEnv(false);
         }
-
 
         // 外部渲染
         if(mUseExternalRender){
             // 开启外部渲染
             ZegoLiveRoom.enableExternalRender(true);
-        }else {
-            ZegoLiveRoom.enableExternalRender(false);
         }
 
         // 外部采集
@@ -92,8 +89,6 @@ public class ZegoApiManager {
             VideoCaptureFactoryDemo factoryDemo = new VideoCaptureFactoryDemo();
             factoryDemo.setContext(ZegoApplication.sApplicationContext);
             ZegoLiveRoom.setVideoCaptureFactory(factoryDemo);
-        }else {
-            ZegoLiveRoom.setVideoCaptureFactory(null);
         }
 
         // 外部滤镜
@@ -101,9 +96,9 @@ public class ZegoApiManager {
             // 外部滤镜
             VideoFilterFactoryDemo videoFilterFactoryDemo = new VideoFilterFactoryDemo();
             ZegoLiveRoom.setVideoFilterFactory(videoFilterFactoryDemo);
-        }else {
-            ZegoLiveRoom.setVideoFilterFactory(null);
         }
+
+        ZegoLiveRoom.enableAudioPrep(mEnableAudioPrep);
     }
 
     private void initUserInfo(){
@@ -136,7 +131,6 @@ public class ZegoApiManager {
         mAppID = appID;
 
 
-
         // 初始化sdk
         boolean ret = mZegoLiveRoom.initSDK(appID, signKey, ZegoApplication.sApplicationContext);
         if(!ret){
@@ -163,17 +157,22 @@ public class ZegoApiManager {
      * @return
      */
     private byte[] requestSignKey(long appId) {
-        if (appId == 1) {
+        if (isRtmpProduct(appId)) {
             return new byte[] {(byte) 0x91, (byte) 0x93, (byte) 0xcc, (byte) 0x66, (byte) 0x2a, (byte) 0x1c, (byte) 0x0e, (byte) 0xc1,
                     (byte) 0x35, (byte) 0xec, (byte) 0x71, (byte) 0xfb, (byte) 0x07, (byte) 0x19, (byte) 0x4b, (byte) 0x38,
                     (byte) 0x41, (byte) 0xd4, (byte) 0xad, (byte) 0x83, (byte) 0x78, (byte) 0xf2, (byte) 0x59, (byte) 0x90,
                     (byte) 0xe0, (byte) 0xa4, (byte) 0x0c, (byte) 0x7f, (byte) 0xf4, (byte) 0x28, (byte) 0x41, (byte) 0xf7
             };
-        } else if (appId == 1739272706) {
+        } else if (isUdpProduct(appId)) {
             return new byte[] {(byte)0x1e, (byte)0xc3, (byte)0xf8, (byte)0x5c, (byte)0xb2, (byte)0xf2, (byte)0x13, (byte)0x70,
                     (byte)0x26, (byte)0x4e, (byte)0xb3, (byte)0x71, (byte)0xc8, (byte)0xc6, (byte)0x5c, (byte)0xa3,
                     (byte)0x7f, (byte)0xa3, (byte)0x3b, (byte)0x9d, (byte)0xef, (byte)0xef, (byte)0x2a, (byte)0x85,
                     (byte)0xe0, (byte)0xc8, (byte)0x99, (byte)0xae, (byte)0x82, (byte)0xc0, (byte)0xf6, (byte)0xf8};
+        } else if (isInternationalProduct(appId)) {
+            return new byte[] {(byte)0x5d, (byte)0xe6, (byte)0x83, (byte)0xac, (byte)0xa4, (byte)0xe5, (byte)0xad, (byte)0x43,
+                    (byte)0xe5, (byte)0xea, (byte)0xe3, (byte)0x70, (byte)0x6b, (byte)0xe0, (byte)0x77, (byte)0xa4,
+                    (byte)0x18, (byte)0x79, (byte)0x38, (byte)0x31, (byte)0x2e, (byte)0xcc, (byte)0x17, (byte)0x19,
+                    (byte)0x32, (byte)0xd2, (byte)0xfe, (byte)0x22, (byte)0x5b, (byte)0x6b, (byte)0x2b, (byte)0x2f};
         }
 
         throw new IllegalArgumentException(String.format("appId: <%d> is illegal, must both 1 or 1739272706", appId));
@@ -195,6 +194,12 @@ public class ZegoApiManager {
     }
 
     public void releaseSDK() {
+        // 清空高级设置
+        ZegoLiveRoom.setTestEnv(false);
+        ZegoLiveRoom.enableExternalRender(false);
+        ZegoLiveRoom.setVideoCaptureFactory(null);
+        ZegoLiveRoom.setVideoFilterFactory(null);
+
         mZegoLiveRoom.unInitSDK();
     }
 
@@ -270,7 +275,23 @@ public class ZegoApiManager {
         mZegoLiveRoom.enableRateControl(useRateControl);
     }
 
+    public void setEnableAudioPrep(boolean enableAudioPrep) {
+        mEnableAudioPrep = enableAudioPrep;
+    }
+
     public long getAppID() {
         return mAppID;
+    }
+
+    public boolean isInternationalProduct(long appId) {
+        return appId == 3322882036L;
+    }
+
+    public boolean isUdpProduct(long appId) {
+        return appId == 1739272706L;
+    }
+
+    public boolean isRtmpProduct(long appId) {
+        return appId == 1L;
     }
 }

@@ -113,6 +113,11 @@ public class SingleAnchorPlayActivity extends BasePlayActivity {
             public void onStreamExtraInfoUpdated(ZegoStreamInfo[] zegoStreamInfos, String s) {
 
             }
+
+            @Override
+            public void onRecvCustomCommand(String userID, String userName, String content, String roomID) {
+
+            }
         });
 
         mZegoLiveRoom.setZegoIMCallback(new IZegoIMCallback() {

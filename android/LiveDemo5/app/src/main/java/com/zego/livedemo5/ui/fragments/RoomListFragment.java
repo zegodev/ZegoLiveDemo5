@@ -13,6 +13,7 @@ import com.zego.livedemo5.interfaces.OnUpdateRoomListListener;
 import com.zego.livedemo5.presenters.BizLivePresenter;
 import com.zego.livedemo5.presenters.RoomInfo;
 import com.zego.livedemo5.ui.activities.externalrender.ExternalRenderPlayActivity;
+import com.zego.livedemo5.ui.activities.gamelive.GameLivingPlayActivity;
 import com.zego.livedemo5.ui.activities.mixstream.MixStreamPlayActivity;
 import com.zego.livedemo5.ui.activities.moreanchors.MoreAnchorsPlayActivity;
 import com.zego.livedemo5.ui.activities.singleanchor.SingleAnchorPlayActivity;
@@ -69,8 +70,11 @@ public class RoomListFragment extends AbsBaseFragment {
             @Override
             public void onUpdateRoomList(List<RoomInfo> listRoom) {
                 mListRoom.clear();
-                mListRoom.addAll(listRoom);
-
+                for(RoomInfo roomInfo : listRoom){
+                    if(roomInfo.stream_info != null && roomInfo.stream_info.size() > 0){
+                        mListRoom.add(roomInfo);
+                    }
+                }
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -101,6 +105,8 @@ public class RoomListFragment extends AbsBaseFragment {
                     publishType = 2;
                 } else if (roomInfo.room_id.startsWith(ZegoRoomUtil.ROOM_PREFIX_MIX_STREAM)){
                     publishType = 3;
+                } else if(roomInfo.room_id.startsWith(ZegoRoomUtil.ROOM_PREFIX_GAME_LIVING)){
+                    publishType = 4;
                 }
 
                 switch (publishType) {
@@ -116,6 +122,9 @@ public class RoomListFragment extends AbsBaseFragment {
                         break;
                     case 3:
                         MixStreamPlayActivity.actionStart(getActivity(), roomInfo.room_id);
+                        break;
+                    case 4:
+                        GameLivingPlayActivity.actionStart(mParentActivity, roomInfo.room_id);
                         break;
                 }
 

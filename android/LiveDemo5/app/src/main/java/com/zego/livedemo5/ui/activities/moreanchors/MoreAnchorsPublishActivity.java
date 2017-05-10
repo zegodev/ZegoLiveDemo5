@@ -3,6 +3,7 @@ package com.zego.livedemo5.ui.activities.moreanchors;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.zego.livedemo5.R;
 import com.zego.livedemo5.constants.IntentExtra;
@@ -161,6 +162,10 @@ public class MoreAnchorsPublishActivity extends BasePublishActivity {
             public void onStreamExtraInfoUpdated(ZegoStreamInfo[] zegoStreamInfos, String s) {
 
             }
+
+            @Override
+            public void onRecvCustomCommand(String userID, String userName, String content, String roomID) {
+            }
         });
 
         mZegoLiveRoom.setZegoIMCallback(new IZegoIMCallback() {
@@ -201,7 +206,8 @@ public class MoreAnchorsPublishActivity extends BasePublishActivity {
 
     @Override
     protected void initPublishConfigs() {
-
+        // 连麦模式
+        mPublishFlag = ZegoConstants.PublishFlag.JoinPublish;
     }
 
     @Override

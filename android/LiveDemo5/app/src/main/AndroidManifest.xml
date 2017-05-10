@@ -111,6 +111,14 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             />
 
+        <activity android:name=".ui.activities.gamelive.GameLiveActivity"
+                  android:configChanges="orientation|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activities.gamelive.GameLivingPlayActivity"
+                  android:configChanges="orientation|screenSize"
+            />
+
+
     </application>
 
 </manifest>

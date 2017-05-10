@@ -9,6 +9,7 @@ import com.zego.livedemo5.constants.IntentExtra;
 import com.zego.livedemo5.ui.activities.BasePublishActivity;
 import com.zego.livedemo5.ui.widgets.ViewLive;
 import com.zego.livedemo5.utils.ZegoRoomUtil;
+import com.zego.zegoliveroom.callback.IZegoAudioPrepCallback;
 import com.zego.zegoliveroom.callback.IZegoLivePublisherCallback;
 import com.zego.zegoliveroom.callback.IZegoLoginCompletionCallback;
 import com.zego.zegoliveroom.callback.IZegoRoomCallback;
@@ -20,6 +21,7 @@ import com.zego.zegoliveroom.entity.ZegoRoomMessage;
 import com.zego.zegoliveroom.entity.ZegoStreamInfo;
 import com.zego.zegoliveroom.entity.ZegoUserState;
 
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 
 /**
@@ -128,6 +130,11 @@ public class SingleAnchorPublishActivity extends BasePublishActivity {
             public void onStreamExtraInfoUpdated(ZegoStreamInfo[] zegoStreamInfos, String s) {
 
             }
+
+            @Override
+            public void onRecvCustomCommand(String userID, String userName, String content, String roomID) {
+
+            }
         });
 
         mZegoLiveRoom.setZegoIMCallback(new IZegoIMCallback() {
@@ -145,6 +152,21 @@ public class SingleAnchorPublishActivity extends BasePublishActivity {
             @Override
             public void onRecvConversationMessage(String roomID, String conversationID, ZegoConversationMessage message) {
                 handleRecvConversationMsg(roomID, conversationID, message);
+            }
+        });
+
+        mZegoLiveRoom.setZegoAudioPrepCallback(new IZegoAudioPrepCallback() {
+            @Override
+            public void onAudioPrep(ByteBuffer inData, int sampleCount, int bitDepth, int sampleRate, ByteBuffer outData) {
+                if(inData != null && outData != null){
+                    inData.position(0);
+                    outData.position(0);
+                    // outData的长度固定为sampleCount * bitDepth
+                    // 不可更改
+                    outData.limit(sampleCount * bitDepth);
+                    // 将处理后的数据返回sdk
+                    outData.put(inData);
+                }
             }
         });
     }
@@ -167,6 +189,8 @@ public class SingleAnchorPublishActivity extends BasePublishActivity {
 
     @Override
     protected void initPublishConfigs() {
+        // 单主播模式, 直推CDN
+        mPublishFlag = ZegoConstants.PublishFlag.SingleAnchor;
     }
 
     @Override

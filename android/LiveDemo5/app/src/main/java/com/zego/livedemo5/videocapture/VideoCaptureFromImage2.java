@@ -47,11 +47,11 @@ public class VideoCaptureFromImage2 extends ZegoVideoCaptureDevice
     private float[] flipMatrix = new float[]{1.0f, 0.0f, 0.0f, 0.0f,
             0.0f, -1.0f, 0.0f, 0.0f,
             0.0f, 0.0f, 1.0f, 0.0f,
-            0.0f, 1.0f, 0.0f, 1.0f};
+            0.0f, 1.0f, 0.0f, 0.0f};
     private float[] transformationMatrix = new float[]{1.0f, 0.0f, 0.0f, 0.0f,
             0.0f, 1.0f, 0.0f, 0.0f,
             0.0f, 0.0f, 1.0f, 0.0f,
-            0.0f, 1.0f, 0.0f, 1.0f};
+            0.0f, 0.0f, 0.0f, 1.0f};
 
     private int mViewWidth = 0;
     private int mViewHeight = 0;
