@@ -145,3 +145,13 @@
 "等待主持人响应" = "Waiting Host Respond";
 "当前模式:轮流说话(正在游戏,等待下一局)" = "Mode:In-Turn Speaking(Waiting Next Game)";
 
+"指定ID拉/推流" = "Pull/Push stream with specified IDs";
+"指定ID拉流" = "Pull stream with specified IDs";
+"输入Room ID，不可为空" = "Room ID required";
+"输入Stream ID，不可为空" = "Stream ID required";
+"确定" = "Confirm";
+"取消" = "Cancel";
+"请选择推流模式" = "Choose push mode";
+"指定ID推流" = "Push stream with specified IDs";
+"输入直播标题" = "Live title required";
+"指定ID推流测试" = "Test with specified IDs";

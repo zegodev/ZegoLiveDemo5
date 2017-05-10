@@ -272,6 +272,9 @@
     {
         [self stopPublish];
         [self updateSpeakingButton:YES];
+        
+        ZegoWerewolUserInfo *userInfo = [self getSelfUserInfo];
+        userInfo.streamId = nil;
     }
     
     [self stopTimer:self.sendStopSpeakingTimer];
@@ -333,6 +336,8 @@
 - (void)removeOldUser:(NSString *)userId broadcast:(BOOL)broadcast
 {
     ZegoWerewolUserInfo *userInfo = [self getUserInfoByUserId:userId];
+    BOOL userExist = NO;
+    
     if (userInfo != nil)
     {
         [self stopPlay:userInfo];
@@ -344,9 +349,11 @@
         [self updateContainerConstraintsForRemove:userInfo.videoView];
         
         [self.userList removeObject:userInfo];
+        
+        userExist = YES;
     }
     
-    if (self.userList.count < 2)
+    if (self.userList.count < 2 && userExist)
     {
         if (self.inTurnSpeakButton.enabled)
         {
@@ -360,6 +367,7 @@
         [self stopCurrentMode];
         self.speakingMode = kFreeSpeakingMode;
         [self updateSpeakingButton:YES];
+            
         self.tipsLabel.text = NSLocalizedString(@"所有玩家都退出了", nil);
     }
 }
@@ -878,8 +886,13 @@
         {
             [[ZegoDemoHelper api] updatePlayView:nil ofStream:stream.streamID];
             [[ZegoDemoHelper api] stopPlayingStream:stream.streamID];
-            
             continue;
+        }
+        
+        if (userInfo.streamId.length != 0)
+        {
+            [[ZegoDemoHelper api] updatePlayView:nil ofStream:userInfo.streamId];
+            [[ZegoDemoHelper api] stopPlayingStream:userInfo.streamId];
         }
         
         userInfo.streamId = stream.streamID;
@@ -916,6 +929,7 @@
         {
             [self stopPlayInBigView:userInfo];
         }
+        
         userInfo.streamId = nil;
     }
 }

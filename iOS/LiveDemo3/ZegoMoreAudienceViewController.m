@@ -85,6 +85,11 @@
     self.sharedButton.enabled = NO;
     
     self.fullscreenButton.hidden = YES;
+    
+    if ([ZegoDemoHelper recordTime])
+    {
+        [self.toolViewController startTimeRecord];
+    }
 }
 
 - (void)setButtonHidden:(BOOL)hidden
@@ -739,6 +744,11 @@
     
     if (self.loginRoomSuccess)
         [[ZegoDemoHelper api] logoutRoom];
+    
+    if ([ZegoDemoHelper recordTime])
+    {
+        [self.toolViewController stopTimeRecord];
+    }
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

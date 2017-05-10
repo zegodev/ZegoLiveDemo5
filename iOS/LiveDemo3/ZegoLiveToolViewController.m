@@ -37,6 +37,9 @@
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) NSUInteger likeCount;
 
+@property (nonatomic, strong) NSTimer *recordTimer;
+@property (nonatomic, strong) NSDateFormatter *timeFormatter;
+
 @end
 
 @implementation ZegoLiveToolViewController
@@ -65,6 +68,43 @@
     
     UITapGestureRecognizer *likeTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapLikeView:)];
     [self.likeTapView addGestureRecognizer:likeTapGestureRecognizer];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTimeLabel) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)startTimeRecord
+{
+    if (!self.timeFormatter)
+    {
+        self.timeFormatter = [[NSDateFormatter alloc] init];
+        self.timeFormatter.dateFormat = @"HH:mm:ss:SSS";
+        self.timeFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"];
+    }
+    
+    self.timeLabel.hidden = NO;
+    
+    if (!self.recordTimer)
+    {
+        self.recordTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/60 target:self selector:@selector(updateTimeLabel) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:self.recordTimer forMode:NSRunLoopCommonModes];
+        
+        [self.recordTimer fire];
+    }
+}
+
+- (void)stopTimeRecord
+{
+    if (self.recordTimer != nil)
+    {
+        [self.recordTimer invalidate];
+        self.recordTimer = nil;
+    }
+}
+
+- (void)updateTimeLabel
+{
+    [self.timeLabel setText:[self.timeFormatter stringFromDate:[NSDate date]]];
 }
 
 #pragma mark rotate

@@ -186,6 +186,9 @@
     [self setIdelTimerDisable:NO];
     [super viewWillDisappear:animated];
     
+    [self.usageTimer invalidate];
+    self.usageTimer = nil;
+    
     if (self.isBeingDismissed)
     {
         [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -91,6 +91,11 @@
     self.optionButton.enabled = NO;
     self.sharedButton.enabled = NO;
     self.fullscreenButton.hidden = YES;
+    
+    if ([ZegoDemoHelper recordTime])
+    {
+        [self.toolViewController startTimeRecord];
+    }
 }
 
 - (void)setButtonHidden:(BOOL)hidden
@@ -741,6 +746,11 @@
     [self setBackgroundImage:nil playerView:self.playViewContainer];
     
     [self clearAllStream];
+    
+    if ([ZegoDemoHelper recordTime])
+    {
+        [self.toolViewController stopTimeRecord];
+    }
     
     if (self.loginRoomSuccess)
         [[ZegoDemoHelper api] logoutRoom];

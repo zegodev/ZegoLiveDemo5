@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *appSign;
 
 @property (weak, nonatomic) IBOutlet UISwitch *testEnvSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *internationalSwitch;
 
 @property (weak, nonatomic) IBOutlet UISwitch *captureSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *renderSwitch;
@@ -139,6 +140,12 @@
     [self updateUIView];
 }
 
+- (IBAction)toggleInternational:(id)sender
+{
+    UISwitch *s = (UISwitch *)sender;
+    [ZegoDemoHelper setUsingInternationDomain:s.on];
+}
+
 - (void)updateUIView
 {
     self.testEnvSwitch.on = [ZegoDemoHelper usingTestEnv];
@@ -158,6 +165,8 @@
     self.reverbSwitch.on = [ZegoDemoHelper reverbEnabled];
     
     self.timeSwitch.on = [ZegoDemoHelper recordTime];
+    
+    self.internationalSwitch.on = [ZegoDemoHelper usingInternationDomain];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

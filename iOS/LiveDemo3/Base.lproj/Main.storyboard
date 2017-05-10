@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vC3-pB-5Vb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vC3-pB-5Vb">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -26,7 +26,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2162" y="-170"/>
+            <point key="canvasLocation" x="-2484" y="-170"/>
         </scene>
         <!--直播列表-->
         <scene sceneID="wcv-bl-RZV">
@@ -99,7 +99,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Hh-lr-V2R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-412" y="323"/>
+            <point key="canvasLocation" x="-412" y="-1191"/>
         </scene>
         <!--Zego Audience View Controller-->
         <scene sceneID="iCV-CK-Our">
@@ -142,7 +142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XJT-d1-DWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="282" y="310"/>
+            <point key="canvasLocation" x="1193" y="-1195"/>
         </scene>
         <!--设置-->
         <scene sceneID="ZTE-gx-Stm">
@@ -468,7 +468,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Y3-O8-xOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1329" y="684"/>
+            <point key="canvasLocation" x="-412" y="1133"/>
         </scene>
         <!--ZEGO-->
         <scene sceneID="m7Z-93-DRF">
@@ -811,6 +811,38 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="OTHER" id="DNO-ss-lbq">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WYt-Eb-sKY">
+                                        <rect key="frame" x="0.0" y="783.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WYt-Eb-sKY" id="HyS-4G-Fei">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jy4-FF-PRN">
+                                                    <rect key="frame" x="318" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="toggleInternational:" destination="zK5-G6-LvE" eventType="valueChanged" id="qYL-v0-ePD"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="国际版" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7WL-Dz-vHc">
+                                                    <rect key="frame" x="16" y="11.5" width="52" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7WL-Dz-vHc" firstAttribute="centerY" secondItem="HyS-4G-Fei" secondAttribute="centerY" id="K1M-yg-Ptf"/>
+                                                <constraint firstItem="jy4-FF-PRN" firstAttribute="centerY" secondItem="HyS-4G-Fei" secondAttribute="centerY" id="Qkc-5w-TKw"/>
+                                                <constraint firstItem="jy4-FF-PRN" firstAttribute="trailing" secondItem="HyS-4G-Fei" secondAttribute="trailingMargin" id="jXB-0o-i9u"/>
+                                                <constraint firstItem="7WL-Dz-vHc" firstAttribute="leading" secondItem="HyS-4G-Fei" secondAttribute="leadingMargin" constant="8" id="tdz-d7-Diu"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="zK5-G6-LvE" id="9Zu-IG-xHZ"/>
@@ -825,6 +857,7 @@
                         <outlet property="decodeSwitch" destination="jHe-MN-qlL" id="ZZY-Vc-jXf"/>
                         <outlet property="encodeSwitch" destination="maF-Du-ZUt" id="gUv-zy-BQp"/>
                         <outlet property="filterSwitch" destination="EH2-kC-ntA" id="vS4-m2-FpQ"/>
+                        <outlet property="internationalSwitch" destination="jy4-FF-PRN" id="6SX-WG-3yC"/>
                         <outlet property="rateControlSwitch" destination="Ssw-Vd-pa9" id="Vn9-3N-ABu"/>
                         <outlet property="renderSwitch" destination="Rln-50-o3W" id="kkQ-xJ-k3N"/>
                         <outlet property="reverbSwitch" destination="Dyv-BA-d8j" id="UVN-ly-xLq"/>
@@ -834,7 +867,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B4a-SM-GeC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1666" y="1419"/>
+            <point key="canvasLocation" x="633" y="1746"/>
         </scene>
         <!--ZEGO-->
         <scene sceneID="T1J-O7-xG0">
@@ -882,7 +915,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EKF-jv-KpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-865" y="1434"/>
+            <point key="canvasLocation" x="633" y="2503"/>
         </scene>
         <!--发布直播-->
         <scene sceneID="VDy-aU-xdf">
@@ -1102,7 +1135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3K5-xL-fmw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-412" y="-376"/>
+            <point key="canvasLocation" x="-412" y="-170"/>
         </scene>
         <!--Zego Anchor View Controller-->
         <scene sceneID="c3b-6e-aEt">
@@ -1147,7 +1180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ta-kc-5X4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769" y="-397"/>
+            <point key="canvasLocation" x="633" y="963"/>
         </scene>
         <!--日志-->
         <scene sceneID="shZ-xw-twr">
@@ -1211,7 +1244,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vp4-7o-n4A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3583" y="-633"/>
+            <point key="canvasLocation" x="4409" y="233"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KOu-dK-U3l">
@@ -1227,7 +1260,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YAw-Wa-5Fh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2826" y="-632"/>
+            <point key="canvasLocation" x="3670" y="233"/>
         </scene>
         <!--Zego Anchor Option View Controller-->
         <scene sceneID="AoC-ia-hTk">
@@ -1333,7 +1366,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ono-2F-i0X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-182" y="987"/>
+            <point key="canvasLocation" x="5167" y="233"/>
         </scene>
         <!--ZEGO-->
         <scene sceneID="h9r-lm-eP8">
@@ -1362,7 +1395,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hjr-SE-1nm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1308" y="-170"/>
+            <point key="canvasLocation" x="-1524" y="-170"/>
         </scene>
         <!--Zego More Anchor View Controller-->
         <scene sceneID="mBj-ZX-e9n">
@@ -1405,7 +1438,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7Z-Uw-3tM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769" y="-1050"/>
+            <point key="canvasLocation" x="633" y="233"/>
         </scene>
         <!--Zego Mix Stream Anchor View Controller-->
         <scene sceneID="ci8-Gj-6eh">
@@ -1445,7 +1478,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="USF-PG-NmV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="800.79999999999995" y="-1800.4497751124438"/>
+            <point key="canvasLocation" x="633" y="-469"/>
         </scene>
         <!--Zego More Audience View Controller-->
         <scene sceneID="Gws-Pc-XBc">
@@ -1488,7 +1521,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5T-ge-msA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="988" y="310"/>
+            <point key="canvasLocation" x="1916" y="-1195"/>
         </scene>
         <!--Zego Mix Stream Audience View Controller-->
         <scene sceneID="YSz-95-4EN">
@@ -1535,7 +1568,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQW-ZB-4Az" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1780" y="315"/>
+            <point key="canvasLocation" x="2639" y="-1191"/>
         </scene>
         <!--Zego Render Audience View Controller-->
         <scene sceneID="iHP-WD-Lcz">
@@ -1582,7 +1615,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V99-Tz-TuG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2402" y="314"/>
+            <point key="canvasLocation" x="3332" y="-1191"/>
         </scene>
         <!--Zego Render View Controller-->
         <scene sceneID="ktU-42-8Fl">
@@ -1600,7 +1633,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aps-au-ykp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3238" y="310"/>
+            <point key="canvasLocation" x="4079" y="-1191"/>
         </scene>
         <!--Zego Live Tool View Controller-->
         <scene sceneID="wa4-H5-ImH">
@@ -1611,11 +1644,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Wwz-Jd-l2a"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SFC-MU-3KV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h1n-7p-Uts" userLabel="like View" customClass="ZegoLikeView">
-                                <rect key="frame" x="276" y="319" width="92" height="300"/>
+                                <rect key="frame" x="276" y="299" width="92" height="300"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="92" id="ReL-9U-bNU"/>
@@ -1623,7 +1656,7 @@
                                 </constraints>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GqI-ID-27A" userLabel="Comment View">
-                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="607" width="375" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hiN-57-dnn">
                                         <rect key="frame" x="8" y="5" width="304" height="30"/>
@@ -1653,7 +1686,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBi-dt-K9q" userLabel="Comment">
-                                <rect key="frame" x="6" y="619" width="40" height="40"/>
+                                <rect key="frame" x="6" y="599" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="PPG-1Y-Z9l"/>
                                     <constraint firstAttribute="height" constant="40" id="zcn-Xo-s0o"/>
@@ -1664,7 +1697,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sam-9U-YJb">
-                                <rect key="frame" x="259" y="619" width="40" height="40"/>
+                                <rect key="frame" x="259" y="599" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="1n8-TL-cEs"/>
                                     <constraint firstAttribute="height" constant="40" id="F0p-79-0lF"/>
@@ -1675,14 +1708,14 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bWI-yf-4jD" userLabel="Tap View">
-                                <rect key="frame" x="54" y="618" width="197" height="42"/>
+                                <rect key="frame" x="54" y="598" width="197" height="42"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="MKn-8c-Evr"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ib4-sn-DQ6" userLabel="Top View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="611"/>
+                                <rect key="frame" x="0.0" y="-20" width="375" height="611"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rgu-62-QMg">
                                         <rect key="frame" x="0.0" y="407.5" width="275" height="203.5"/>
@@ -1799,6 +1832,13 @@
                                             <constraint firstItem="TXG-5v-clQ" firstAttribute="centerX" secondItem="84V-iF-Mum" secondAttribute="centerX" id="sf1-5L-kOI"/>
                                         </constraints>
                                     </view>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:09:00:123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViK-6v-hLB">
+                                        <rect key="frame" x="98" y="325.5" width="179.5" height="36"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1816,7 +1856,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKl-du-RfA">
-                                <rect key="frame" x="319" y="619" width="40" height="40"/>
+                                <rect key="frame" x="319" y="599" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="DEz-xz-sCa"/>
                                     <constraint firstAttribute="width" constant="40" id="ewz-fq-m1g"/>
@@ -1834,8 +1874,10 @@
                             <constraint firstItem="AKl-du-RfA" firstAttribute="top" secondItem="h1n-7p-Uts" secondAttribute="bottom" id="7e3-8l-aa1"/>
                             <constraint firstItem="bWI-yf-4jD" firstAttribute="leading" secondItem="rBi-dt-K9q" secondAttribute="trailing" constant="8" id="9sv-X2-K7l"/>
                             <constraint firstItem="bWI-yf-4jD" firstAttribute="centerY" secondItem="rBi-dt-K9q" secondAttribute="centerY" id="BYY-B2-xYd"/>
+                            <constraint firstItem="ViK-6v-hLB" firstAttribute="centerX" secondItem="SFC-MU-3KV" secondAttribute="centerX" id="F93-bL-cnv"/>
                             <constraint firstItem="sam-9U-YJb" firstAttribute="centerY" secondItem="AKl-du-RfA" secondAttribute="centerY" id="G7u-0y-Hyx"/>
                             <constraint firstItem="AKl-du-RfA" firstAttribute="leading" secondItem="sam-9U-YJb" secondAttribute="trailing" constant="20" id="HSY-6g-WZz"/>
+                            <constraint firstItem="ViK-6v-hLB" firstAttribute="centerY" secondItem="SFC-MU-3KV" secondAttribute="centerY" id="Lv7-in-djO"/>
                             <constraint firstItem="rBi-dt-K9q" firstAttribute="leading" secondItem="SFC-MU-3KV" secondAttribute="leadingMargin" constant="-10" id="TRh-kc-PX9"/>
                             <constraint firstAttribute="trailing" secondItem="ib4-sn-DQ6" secondAttribute="trailing" id="ZiV-xs-wfm"/>
                             <constraint firstAttribute="trailing" secondItem="h1n-7p-Uts" secondAttribute="trailing" constant="7" id="lBR-hy-Mte"/>
@@ -1869,13 +1911,14 @@
                         <outlet property="shareButton" destination="sam-9U-YJb" id="byV-7E-RH1"/>
                         <outlet property="stopPublishButton" destination="YoC-ph-r3t" id="wYe-FO-ibR"/>
                         <outlet property="textField" destination="hiN-57-dnn" id="pc3-Gw-clW"/>
+                        <outlet property="timeLabel" destination="ViK-6v-hLB" id="kj5-wM-jVQ"/>
                         <outlet property="topViewBottomConstraint" destination="1Q1-Sl-8Lb" id="Zv8-hC-plP"/>
                         <outlet property="topViewHeightConstraint" destination="kbL-Rm-tEl" id="4np-dN-Cim"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ou-0b-bjh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1997.5999999999999" y="-853.22338830584715"/>
+            <point key="canvasLocation" x="2712.8000000000002" y="232.53373313343329"/>
         </scene>
         <!--Zego Werewolf In Turn View Controller-->
         <scene sceneID="adx-2W-rIJ">
@@ -1977,7 +2020,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b7v-Dc-2iJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1500" y="1059.2203898050975"/>
+            <point key="canvasLocation" x="4916" y="-1195"/>
         </scene>
         <!--Zego Werewolf Host View Controller-->
         <scene sceneID="hAV-Ir-DNP">
@@ -2099,7 +2142,95 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzJ-Sk-C7y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2261.5999999999999" y="1058.3208395802101"/>
+            <point key="canvasLocation" x="5590" y="-1195"/>
+        </scene>
+        <!--Zego Test Pull View Controller-->
+        <scene sceneID="USd-S5-NwF">
+            <objects>
+                <viewController storyboardIdentifier="testPullID" id="W4f-ku-66T" customClass="ZegoTestPullViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vt1-5c-Euf"/>
+                        <viewControllerLayoutGuide type="bottom" id="NcM-df-2vO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rjm-hD-EOj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ao-1x-USC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sk-3O-C8S">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <segue destination="c4Y-Ug-MpH" kind="embed" id="XAF-um-kS1"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="1sk-3O-C8S" firstAttribute="top" secondItem="rjm-hD-EOj" secondAttribute="top" id="247-hf-pal"/>
+                            <constraint firstItem="7ao-1x-USC" firstAttribute="leading" secondItem="rjm-hD-EOj" secondAttribute="leading" id="4Zz-T6-pq4"/>
+                            <constraint firstItem="NcM-df-2vO" firstAttribute="top" secondItem="1sk-3O-C8S" secondAttribute="bottom" id="BqE-U4-wMk"/>
+                            <constraint firstAttribute="trailing" secondItem="1sk-3O-C8S" secondAttribute="trailing" id="Flu-iE-m8W"/>
+                            <constraint firstItem="7ao-1x-USC" firstAttribute="top" secondItem="rjm-hD-EOj" secondAttribute="top" id="L3H-Vu-qeC"/>
+                            <constraint firstItem="1sk-3O-C8S" firstAttribute="leading" secondItem="rjm-hD-EOj" secondAttribute="leading" id="S7U-az-MeT"/>
+                            <constraint firstItem="NcM-df-2vO" firstAttribute="top" secondItem="7ao-1x-USC" secondAttribute="bottom" id="lM7-vz-58d"/>
+                            <constraint firstAttribute="trailing" secondItem="7ao-1x-USC" secondAttribute="trailing" id="svd-pQ-dhu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playViewContainer" destination="7ao-1x-USC" id="OHE-YY-iHK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KMn-Ou-pPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1490" y="1746"/>
+        </scene>
+        <!--Zego Test Push View Controller-->
+        <scene sceneID="fvM-ny-7Iy">
+            <objects>
+                <viewController storyboardIdentifier="testPushID" id="mDc-ID-3he" customClass="ZegoTestPushViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pkS-Tn-Qje"/>
+                        <viewControllerLayoutGuide type="bottom" id="gho-Gj-02F"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rAk-kG-oGZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Did-Jp-uKL" userLabel="Big View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jcU-gE-mOT" userLabel="tool view">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="c4Y-Ug-MpH" kind="embed" id="3lO-KB-maX"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gho-Gj-02F" firstAttribute="top" secondItem="jcU-gE-mOT" secondAttribute="bottom" id="1M6-x1-Tgc"/>
+                            <constraint firstItem="Did-Jp-uKL" firstAttribute="leading" secondItem="rAk-kG-oGZ" secondAttribute="leading" id="Ee7-2X-pta"/>
+                            <constraint firstItem="jcU-gE-mOT" firstAttribute="leading" secondItem="rAk-kG-oGZ" secondAttribute="leading" id="anU-Zp-yZt"/>
+                            <constraint firstAttribute="trailing" secondItem="jcU-gE-mOT" secondAttribute="trailing" id="k7i-yp-EXS"/>
+                            <constraint firstItem="gho-Gj-02F" firstAttribute="top" secondItem="Did-Jp-uKL" secondAttribute="bottom" id="kAq-aK-oS6"/>
+                            <constraint firstItem="Did-Jp-uKL" firstAttribute="top" secondItem="rAk-kG-oGZ" secondAttribute="top" id="no4-Lc-ALO"/>
+                            <constraint firstAttribute="trailing" secondItem="Did-Jp-uKL" secondAttribute="trailing" id="rPa-Wx-E6h"/>
+                            <constraint firstItem="jcU-gE-mOT" firstAttribute="top" secondItem="rAk-kG-oGZ" secondAttribute="top" id="tw8-uM-iYX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playViewContainer" destination="Did-Jp-uKL" id="Sxv-MZ-l46"/>
+                        <outlet property="toolView" destination="jcU-gE-mOT" id="CJA-Pd-Qz2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jTo-sp-2yI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2310" y="1746"/>
         </scene>
     </scenes>
     <resources>
@@ -2111,6 +2242,6 @@
         <image name="share" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JNS-Mz-lnK"/>
+        <segue reference="GHN-GM-heZ"/>
     </inferredMetricsTieBreakers>
 </document>

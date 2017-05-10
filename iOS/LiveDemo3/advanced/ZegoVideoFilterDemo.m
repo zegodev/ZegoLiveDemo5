@@ -52,7 +52,8 @@
         self.attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14], NSForegroundColorAttributeName: [UIColor redColor], NSBackgroundColorAttributeName: [UIColor lightGrayColor]};
         
         self.formatter = [[NSDateFormatter alloc] init];
-        self.formatter.dateFormat = @"HH:mm:ss";
+        self.formatter.dateFormat = @"HH:mm:ss:SSS";
+        self.formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"];
     }
     
     queue_ = dispatch_queue_create("video.filter", nil);
@@ -139,7 +140,7 @@
     int imageHeight = (int)CVPixelBufferGetHeight(inputPixelBuffer);
     int imageStride = (int)CVPixelBufferGetBytesPerRowOfPlane(inputPixelBuffer, 0);
     
-    CIImage *blendImage = [ZegoLiveRoomApi overlayImage:[CIImage imageWithCGImage:videoImage] image:[CIImage imageWithCGImage:textImage.CGImage] size:CGSizeMake(ceilf(imageWidth * 0.3), ceilf(imageHeight * 0.7))];
+    CIImage *blendImage = [ZegoLiveRoomApi overlayImage:[CIImage imageWithCGImage:videoImage] image:[CIImage imageWithCGImage:textImage.CGImage] size:CGSizeMake(ceilf(imageWidth * 0.1), ceilf(imageHeight * 0.7))];
     
     CIContext *context = [CIContext contextWithCGContext:UIGraphicsGetCurrentContext() options:nil];
 

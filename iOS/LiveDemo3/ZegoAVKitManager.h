@@ -61,6 +61,9 @@ typedef enum : NSUInteger {
 + (BOOL)useHeadSet;
 + (void)checkHeadSet;
 
++ (void)setUsingInternationDomain:(bool)bUse;
++ (bool)usingInternationDomain;
+
 #if TARGET_OS_SIMULATOR
 + (ZegoVideoCaptureFactory *)getVideoCaptureFactory;
 #else

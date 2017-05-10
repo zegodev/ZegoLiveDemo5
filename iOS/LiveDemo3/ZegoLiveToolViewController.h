@@ -50,9 +50,14 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *renderLabel;
 
+@property (nonatomic, weak) IBOutlet UILabel *timeLabel;
+
 //- (void)updateLayout:(NSArray<ZegoComment *> *)commentList;
 - (void)updateLayout:(NSArray<ZegoRoomMessage *> *)messageList;
 
 - (void)updateLikeAnimation:(NSUInteger)count;
+
+- (void)startTimeRecord;
+- (void)stopTimeRecord;
 
 @end

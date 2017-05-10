@@ -558,11 +558,11 @@
         //再信令到达前的流
         if (type == ZEGO_STREAM_ADD)
         {
-            
+            [self onStreamUpdatedBeforeLoginAdded:streamList];
         }
         else if (type == ZEGO_STREAM_DELETE)
         {
-            
+            [self onStreamUpdatedBeforeLoginDeleted:streamList];
         }
         
         return;
@@ -580,7 +580,17 @@
     {
         ZegoWerewolUserInfo *userInfo = [self getUserInfoByUserId:stream.userID];
         if (userInfo == nil)
+        {
+            [[ZegoDemoHelper api] updatePlayView:nil ofStream:stream.streamID];
+            [[ZegoDemoHelper api] stopPlayingStream:stream.streamID];
             continue;
+        }
+        
+        if (userInfo.streamId.length != 0)
+        {
+            [[ZegoDemoHelper api] updatePlayView:nil ofStream:userInfo.streamId];
+            [[ZegoDemoHelper api] stopPlayingStream:userInfo.streamId];
+        }
         
         NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"开始播放, 流ID:%@", nil), stream.streamID];
         [self addLogString:logString];

@@ -22,7 +22,7 @@ BOOL g_useHardwareEncode = NO;
 BOOL g_useHardwareDecode = NO;
 #else
 
-#ifdef ZEGO_TEST_RTP3
+#if defined(ZEGO_TEST_RTP3) || defined(ZEGO_TEST_RTP_INTEL)
 BOOL g_useHardwareEncode = NO;
 #else
 BOOL g_useHardwareEncode = YES;
@@ -35,11 +35,19 @@ BOOL g_enableVideoRateControl = NO;
 
 BOOL g_useExternalCaptrue = NO;
 BOOL g_useExternalRender = NO;
-BOOL g_useExternalFilter = NO;
+
 
 BOOL g_enableReverb = NO;
 
+#ifdef ZEGO_TEST_RTP_INTEL
+BOOL g_recordTime = YES;
+BOOL g_useInternationDomain = YES;
+BOOL g_useExternalFilter = YES;
+#else
 BOOL g_recordTime = NO;
+BOOL g_useInternationDomain = NO;
+BOOL g_useExternalFilter = NO;
+#endif
 
 BOOL g_useHeadSet = NO;
 
@@ -70,7 +78,8 @@ static __strong id<ZegoVideoFilterFactory> g_filterFactory = nullptr;
 #endif
         
         [self setupVideoCaptureDevice];
-        
+        [self setupVideoFilter];
+    
         [ZegoLiveRoomApi setUserID:[ZegoSettings sharedInstance].userID userName:[ZegoSettings sharedInstance].userName];
 
         NSData * appSign = [self zegoAppSignFromServer];
@@ -336,6 +345,19 @@ void prep_func(const short* inData, int inSamples, int sampleRate, short *outDat
     return g_useHeadSet;
 }
 
++ (void)setUsingInternationDomain:(bool)bUse
+{
+    if (g_useInternationDomain == bUse)
+        return;
+    
+    g_useInternationDomain = bUse;
+}
+
++ (bool)usingInternationDomain
+{
+    return g_useInternationDomain;
+}
+
 #pragma mark - private
 
 + (void)setupVideoCaptureDevice
@@ -365,6 +387,17 @@ void prep_func(const short* inData, int inSamples, int sampleRate, short *outDat
 #endif
 }
 
++ (void)setupVideoFilter
+{
+    if (!g_useExternalFilter)
+        return;
+    
+    if (g_filterFactory == nullptr)
+        g_filterFactory = [[ZegoVideoFilterFactoryDemo alloc] init];
+    
+    [ZegoLiveRoomApi setVideoFilterFactory:g_filterFactory];
+}
+
 + (uint32_t)appID
 {
     if (g_appID != 0)
@@ -373,13 +406,19 @@ void prep_func(const short* inData, int inSamples, int sampleRate, short *outDat
     }
     else
     {
+        
 #ifdef ZEGO_TEST_RTP3
 #warning "ZEGO_TEST_RTP3"
         return 1739272706;  // * rtp
-#else
+#endif
+        
+#ifdef ZEGO_TEST_RTP_INTEL
+#warning "ZEGO_TEST_INTERNATIONAL"
+        return 3322882036;
+#endif
+        
 #warning "ZEGO_DEMO"
         return 1;           // * demo
-#endif
     }
 }
 
@@ -396,6 +435,11 @@ void prep_func(const short* inData, int inSamples, int sampleRate, short *outDat
     else if ([self appID] == 1739272706)
     {
         Byte signkey[] = {0x1e,0xc3,0xf8,0x5c,0xb2,0xf2,0x13,0x70,0x26,0x4e,0xb3,0x71,0xc8,0xc6,0x5c,0xa3,0x7f,0xa3,0x3b,0x9d,0xef,0xef,0x2a,0x85,0xe0,0xc8,0x99,0xae,0x82,0xc0,0xf6,0xf8};
+        return [NSData dataWithBytes:signkey length:32];
+    }
+    else if ([self appID] == 3322882036)
+    {
+        Byte signkey[] = {0x5d,0xe6,0x83,0xac,0xa4,0xe5,0xad,0x43,0xe5,0xea,0xe3,0x70,0x6b,0xe0,0x77,0xa4,0x18,0x79,0x38,0x31,0x2e,0xcc,0x17,0x19,0x32,0xd2,0xfe,0x22,0x5b,0x6b,0x2b,0x2f};
         return [NSData dataWithBytes:signkey length:32];
     }
     else

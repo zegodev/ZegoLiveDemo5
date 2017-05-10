@@ -96,13 +96,17 @@
 {
     [self.refreshControl beginRefreshing];
     
+    NSString *mainDomain = @"zego.im";
+    if ([ZegoDemoHelper usingInternationDomain])
+        mainDomain = @"zegocloud.com";
+    
     NSString *baseUrl = nil;
     if ([ZegoDemoHelper usingAlphaEnv])
         baseUrl = @"https://alpha-liveroom-api.zego.im";
     else if([ZegoDemoHelper usingTestEnv])
         baseUrl =@"https://test2-liveroom-api.zego.im";
     else
-        baseUrl = [NSString stringWithFormat:@"https://liveroom%u-api.zego.im", [ZegoDemoHelper appID]];
+        baseUrl = [NSString stringWithFormat:@"https://liveroom%u-api.%@", [ZegoDemoHelper appID], mainDomain];
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/demo/roomlist?appid=%u", baseUrl, [ZegoDemoHelper appID]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
