@@ -142,7 +142,8 @@
     
     CIImage *blendImage = [ZegoLiveRoomApi overlayImage:[CIImage imageWithCGImage:videoImage] image:[CIImage imageWithCGImage:textImage.CGImage] size:CGSizeMake(ceilf(imageWidth * 0.1), ceilf(imageHeight * 0.7))];
     
-    CIContext *context = [CIContext contextWithCGContext:UIGraphicsGetCurrentContext() options:nil];
+//    CIContext *context = [CIContext contextWithCGContext:UIGraphicsGetCurrentContext() options:nil];
+    CIContext *context = [CIContext contextWithOptions:nil];
 
     CVPixelBufferRef dst = [buffer_pool_ dequeueInputBuffer:imageWidth height:imageHeight stride:imageStride];
     if (dst)
