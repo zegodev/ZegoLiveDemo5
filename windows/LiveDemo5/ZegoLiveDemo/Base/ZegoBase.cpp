@@ -10,23 +10,15 @@
 
 
 #ifdef ZEGO_PROTOCOL_UDP
-static DWORD g_dwAppID2 = 1739272706;
+static DWORD g_dwAppID2 = 10;
 
 static BYTE g_bufSignKey2[] =
 {
-    0x1e, 0xc3, 0xf8, 0x5c, 0xb2, 0xf2, 0x13, 0x70,
-    0x26, 0x4e, 0xb3, 0x71, 0xc8, 0xc6, 0x5c, 0xa3,
-    0x7f, 0xa3, 0x3b, 0x9d, 0xef, 0xef, 0x2a, 0x85,
-    0xe0, 0xc8, 0x99, 0xae, 0x82, 0xc0, 0xf6, 0xf8
 };
 #else
-static DWORD g_dwAppID2 = 1;
+static DWORD g_dwAppID2 = 0;
 static BYTE g_bufSignKey2[] =
 {
-    0x91, 0x93, 0xcc, 0x66, 0x2a, 0x1c, 0x0e, 0xc1,
-    0x35, 0xec, 0x71, 0xfb, 0x07, 0x19, 0x4b, 0x38,
-    0x41, 0xd4, 0xad, 0x83, 0x78, 0xf2, 0x59, 0x90,
-    0xe0, 0xa4, 0x0c, 0x7f, 0xf4, 0x28, 0x41, 0xf7
 };
 #endif
 
@@ -51,7 +43,7 @@ CZegoBase::CZegoBase(void) : m_dwInitedMask(INIT_NONE)
 	CString strPath = strAppFullName.Left(strAppFullName.ReverseFind('\\') + 1);
 	m_strLogPathUTF8 = WStringToUTF8(strPath);
 
-	// ´´½¨Òþ²ØµÄÍ¨ÐÅ´°Ìå
+	// åˆ›å»ºéšè—çš„é€šä¿¡çª—ä½“
 	WNDCLASSEX wcex = { sizeof(WNDCLASSEX) };
 	wcex.hInstance = GetModuleHandle(0);
 	wcex.lpszClassName = ZegoCommWndClassName;
@@ -82,7 +74,7 @@ bool CZegoBase::InitAVSdk(SettingsPtr pCurSetting, std::string userID, std::stri
         LIVEROOM::SetLogDir(m_strLogPathUTF8.c_str());
         LIVEROOM::SetBusinessType(0);
         LIVEROOM::SetUser(userID.c_str(), userName.c_str());
-        // ToDo: ÐèÒªÍ¨¹ý´úÂë»ñÈ¡ÍøÂçÀàÐÍ
+        // ToDo: éœ€è¦é€šè¿‡ä»£ç èŽ·å–ç½‘ç»œç±»åž‹
         LIVEROOM::SetNetType(2);
 		LIVEROOM::InitSDK(g_dwAppID2, g_bufSignKey2, 32);
 
